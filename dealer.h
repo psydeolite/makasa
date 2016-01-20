@@ -8,6 +8,7 @@ typedef struct card {
   int value;
   char* name;
   int is_ace;
+  struct card* next_card;
 } card; 
 
 #endif
@@ -15,6 +16,8 @@ typedef struct card {
 /* ------------------------------------
 Generates deck of standard playing cards (52 unique cards, A-K, four suits) for use during gameplay
 Only run once when starting new games (in main)
+
+Deck is a linked list referenced through the "first card" of the linked list. 
 
 Output: Array of card structs referenced through the master array "deck"
 */
@@ -33,7 +36,7 @@ card deal();
 
 
 /* ---------------------------------------
-Get random card from deck and remove it from the deck
+Get random card from deck and remove it from the deck, using random( <total number of current deck cards)
 
 Output: Random card struct
 */
