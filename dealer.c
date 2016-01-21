@@ -1,7 +1,8 @@
 #include "dealer.h"
 
-void make_deck( char** deck) {
-
+void make_deck( char* deck) {
+  int value;
+  
   
 }
 
