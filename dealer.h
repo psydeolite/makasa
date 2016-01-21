@@ -8,8 +8,9 @@
 
 typedef struct card {
   int value;
-  char* name;
   int is_ace;
+  char* name;
+  
   struct card* next_card;
 } card; 
 
@@ -39,7 +40,7 @@ Input: First card, declared in main
 
 Output: Array of card structs referenced through the master array "deck"
 */
-void make_deck( char** deck); 
+void make_deck( card* deck); 
 
 
 
