@@ -19,12 +19,12 @@ typedef struct card {
 /* --------------------------
 Makes individial card
 
-Input: Value (Ace is one by default), String name, is_ace (0 or 1), and pointer to next card.
+Input: Value (Ace is one by default), String name, is_ace (0 or 1)
 
-Output: Card struct
+Output: Pointer to card struct
 
 */
-card make_card( int value, char* name, int is_ace, card* next_card );
+card* make_card( int value, char* name, int is_ace, card* c);
 
 /* ------------------------------------
 Generates deck of standard playing cards (52 unique cards, A-K, four suits) for use during gameplay
@@ -32,7 +32,7 @@ Only run once when starting new games (in main)
 
  - Deck is a linked list referenced through the "first card" of the linked list. 
 
- - Loops through value-suit, so Ace of Diamonds, Ace of Clubs ... Two of Diamonds, Two of Clubs ... King of Spades
+ - Loops through value-suit (e.g. Ace of Diamonds, Ace of Clubs... King of Hearts, King of Diamonds)
 
  - Last card of deck points to null
 
@@ -50,7 +50,7 @@ Initates game and gives player and dealer cards
 Input: N/A
 Returns: Dealer's hidden card
 */
-card deal(); 
+card* deal(); 
 
 
 
@@ -59,7 +59,7 @@ Get random card from deck and remove it from the deck, using random( <total numb
 
 Output: Random card struct
 */
-card random_card(); 
+card* random_card(); 
 
 
 
