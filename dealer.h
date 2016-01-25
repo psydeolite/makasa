@@ -76,5 +76,5 @@ Dealer stops and finishes game.
 Input: The highest score from among the players
 Output: Game over status and result, as dealer is last to play
 */
-int stand( int highest_player_score );
+void stand( int highest_player_score, int dealer_score );
 

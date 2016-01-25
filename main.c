@@ -6,7 +6,7 @@ int main() {
   printf("Welcome to Blackjack!");
   printf("Shuffling deck");
 
-  make_deck( deck ); //init deck
+  make_deck( deck ); //initiate deck
   
   return 0;
 }

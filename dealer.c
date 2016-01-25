@@ -69,7 +69,8 @@ void make_deck( card* deck) {
   }}
 
 card* deal() {
-  
+  printf("-------- The game has begun. The dealer will now deal. -----------");
+  ;
   
 }
 
@@ -91,9 +92,13 @@ card* random_card( card* deck, int num_of_cards ) {
   return current_card;
 }
 
-int stand( int highest_player_score ) {
- 
-  
+void stand( int highest_player_score, int dealer_score ) {
+  if( highest_player_score > dealer_score )
+    printf("The player has won!");
+  else if( dealer_score > highest_player_score)
+    printf("The dealer has won!");
+  else
+    printf("It is a tie.");
 }
 
 int main() {
