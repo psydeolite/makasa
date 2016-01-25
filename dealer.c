@@ -68,20 +68,33 @@ void make_deck( card* deck) {
     value++;
   }}
 
-/*card* deal() {
-
+card* deal() {
   
-  }
-
-card* random_card() {
-
   
 }
 
-int stand() {
+card* random_card( card* deck, int num_of_cards ) {
+  srand(time(NULL));
+  int r = rand() % num_of_cards;
 
+  card* current_card = deck;
+  card* previous_card = deck;
+  //cycles to a random card
+  while( r > 0 ) {
+    previous_card = current_card;
+    current_card = current_card -> next_card;
+    r--;
+  }
+  //re-links and returns the card
+  previous_card -> next_card = current_card -> next_card;
+
+  return current_card;
+}
+
+int stand( int highest_player_score ) {
+ 
   
-}*/
+}
 
 int main() {
   int socket_id, socket_client;

@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <time.h>
 
 typedef struct card {
   int value;
@@ -29,6 +30,7 @@ Output: Pointer to card struct
 
 */
 card* make_card( int value, char* name, int is_ace, card* c);
+
 
 /* ------------------------------------
 Generates deck of standard playing cards (52 unique cards, A-K, four suits) for use during gameplay
@@ -61,16 +63,18 @@ card* deal();
 /* ---------------------------------------
 Get random card from deck and remove it from the deck, using random( <total number of current deck cards)
 
+Input: "deck": first card of the deck (linked list)
 Output: Random card struct
 */
-card* random_card(); 
+card* random_card( card* deck, int num_of_cards ); 
 
 
 
 /* --------------------------------------
 Dealer stops and finishes game.
 
+Input: The highest score from among the players
 Output: Game over status and result, as dealer is last to play
 */
-int stand();
+int stand( int highest_player_score );
 
