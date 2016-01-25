@@ -27,10 +27,10 @@ void make_deck( card* deck) {
   
 }
 
-card* deal() {
+/*card* deal() {
 
   
-}
+  }
 
 card* random_card() {
 
@@ -40,4 +40,31 @@ card* random_card() {
 int stand() {
 
   
+}*/
+
+int main() {
+  int socket_id, socket_client;
+
+  socket_id=socket(AF_INET, SOCK_STREAM, 0);
+
+  struct sockaddr_in listener;
+  listener.sin_family = AF_INET;
+  listener.sin_port=htons(24601);
+  listener.sin_addr.s_addr=INADDR_ANY;
+  bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
+
+  listen(socket_id, 1);
+  printf("<server> listenin\n");
+  
+  while (1==1) {
+    socket_client=accept(socket_id, NULL, NULL);
+
+    int p=fork();
+    if (!p) {
+      printf("<server> connected: %d\n", socket_client);
+      write(socket_client, "ayy", 4);
+    }
+  }
+
+  return 1;
 }
