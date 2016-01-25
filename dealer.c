@@ -68,17 +68,19 @@ void make_deck( card* deck) {
     value++;
   }}
 
-card* deal( struct player* dealer ) {
+int deal( card* players, int number_of_cards, card* deck ) {
   printf("-------- The game has begun. The dealer will now deal. -----------");
   ;
 
-  //Deal to dealer
-  
+  //Dealer (hide second card in graphics only)
+  players[0] = *random_card( deck, number_of_cards );
+  players[0].next_card = random_card( deck, number_of_cards );
+ 
 }
 
-card* random_card( card* deck, int num_of_cards ) {
+card* random_card( card* deck, int number_of_cards ) {
   srand(time(NULL));
-  int r = rand() % num_of_cards;
+  int r = rand() % number_of_cards;
 
   card* current_card = deck;
   card* previous_card = deck;
@@ -90,7 +92,8 @@ card* random_card( card* deck, int num_of_cards ) {
   }
   //re-links and returns the card
   previous_card -> next_card = current_card -> next_card;
-
+  number_of_cards--;
+  
   return current_card;
 }
 
@@ -103,22 +106,34 @@ void stand( int highest_player_score, int dealer_score ) {
     printf("It is a tie.");
 }
 
-player* make_player( int number, player* dealer) {
-
-  
-}
-
 int main() {
   printf("\n------------ Welcome to Blackjack! ---------------\n");
-  printf("\n------------ Let's start the game! --------------\n");
+
+  //Number of players ( <= 4 )
+  printf("\n How many players want to play?");
+  char* user_input = malloc( 256 );
+  /*user_input in the form of #, for both choice (hit/stand) and for # of players ==> use atoi() to convert */
+  user_input = fgets( user_input, 256, stdin );
+
+  user_input[ strlen( user_input ) - 1] = 0; //truncate \n
+  int number_of_players = atoi( user_input ); //convert to int
   
-  //Starts the Game
-  player* dealer;
-  make_player( 0 );
-  deal( dealer );
+  //Make the deck
+  card* deck;
+  make_deck( deck );
+  int number_of_cards = 52; //NUMBER OF CARDS AT THE START
+
+  
+  //Player/Dealer arrays
+  card players[ number_of_players + 1 ] = malloc( sizeof(card) * number_of_players );
 
 
+  //start game
+  printf("\n------------ Let's start the game! -----------\n");
+  deal( players, number_of_cards, deck );
+
   
+  /*
   int socket_id, socket_client;
 
   socket_id=socket(AF_INET, SOCK_STREAM, 0);
@@ -140,7 +155,8 @@ int main() {
       printf("<server> connected: %d\n", socket_client);
       write(socket_client, "ayy", 4);
     }
-  }
+    }
+  */
 
   return 1;
 }

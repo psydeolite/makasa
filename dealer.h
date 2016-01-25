@@ -19,7 +19,6 @@ typedef struct card {
   struct card* next_card;
 } card; 
 
-
 #endif
 
 /* --------------------------
@@ -54,10 +53,10 @@ void make_deck( card* deck);
 /* ---------------------------------------------
 Initates game and gives player and dealer cards
 
-Input: player struct/linkedlist with dealer being first player
-Returns: Dealer's hidden card
+Input: players array, dealer being at index 0
+Returns: Number of cards
 */
-card* deal(); 
+int deal( card* players, int number_of_cards, card* deck ); 
 
 
 
@@ -67,7 +66,7 @@ Get random card from deck and remove it from the deck, using random( <total numb
 Input: "deck": first card of the deck (linked list)
 Output: Random card struct
 */
-card* random_card( card* deck, int num_of_cards ); 
+card* random_card( card* deck, int number_of_cards ); 
 
 
 
