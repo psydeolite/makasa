@@ -20,12 +20,53 @@ void make_deck( card* deck) {
   //Aces
   value = 1;
   is_ace = 1;
-  while( counter < 4) { 
+  char* name = "A";
+  while( counter < 4) {
+    make_card( value, name + suits[counter], is_ace, current_card);
+    previous_card = current_card;
+    current_card = current_card -> next_card;
     
-    
+    counter++;
   }
-  
-}
+  //2 to 10
+  value++; // value == 2
+  is_ace = 0; 
+  while( value <= 10) {
+    counter = 0;
+    while( counter < 4) {
+      //converts integer value to string, base 10
+      itoa( value, name, 10);
+      
+      make_card( value, name + suits[counter], is_ace, current_card);
+      previous_card = current_card;
+      current_card = current_card -> next_card;
+
+      counter++;
+    }
+    value++;
+  }
+  //Jack, Queen, King
+  while( value <= 13) {
+    counter = 0;
+    while( counter < 4 ) {
+      if( value == 11) { //Jacks
+	name = "J";
+	make_card( value, name + suits[counter], is_ace, current_card);
+      } else if( value == 12) { //Queens
+	name = "Q";
+	make_card( value, name + suits[counter], is_ace, current_card);
+      } else if(value == 13) { //Kings
+	name = "K";
+	make_card( value, name + suits[counter], is_ace, current_card);
+      }
+
+      previous_card = current_card;
+      current_card = current_card -> next_card;
+
+      counter++;
+    }
+    value++;
+  }}
 
 /*card* deal() {
 
