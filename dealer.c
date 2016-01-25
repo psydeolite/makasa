@@ -75,7 +75,9 @@ int deal( card* players, int number_of_cards, card* deck ) {
   //Dealer (hide second card in graphics only)
   players[0] = *random_card( deck, number_of_cards );
   players[0].next_card = random_card( deck, number_of_cards );
- 
+
+  //Players
+  
 }
 
 card* random_card( card* deck, int number_of_cards ) {
