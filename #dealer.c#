@@ -68,11 +68,9 @@ void make_deck( card* deck) {
     value++;
   }}
 
-card* deal( struct player* dealer ) {
+card* deal() {
   printf("-------- The game has begun. The dealer will now deal. -----------");
   ;
-
-  //Deal to dealer
   
 }
 
@@ -103,22 +101,12 @@ void stand( int highest_player_score, int dealer_score ) {
     printf("It is a tie.");
 }
 
-player* make_player( int number, player* dealer) {
-
-  
-}
-
 int main() {
   printf("\n------------ Welcome to Blackjack! ---------------\n");
   printf("\n------------ Let's start the game! --------------\n");
   
   //Starts the Game
-  player* dealer;
-  make_player( 0 );
-  deal( dealer );
-
-
-  
+   
   int socket_id, socket_client;
 
   socket_id=socket(AF_INET, SOCK_STREAM, 0);

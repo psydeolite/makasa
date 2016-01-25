@@ -19,6 +19,7 @@ typedef struct card {
   struct card* next_card;
 } card; 
 
+
 #endif
 
 /* --------------------------
@@ -53,7 +54,7 @@ void make_deck( card* deck);
 /* ---------------------------------------------
 Initates game and gives player and dealer cards
 
-Input: N/A
+Input: player struct/linkedlist with dealer being first player
 Returns: Dealer's hidden card
 */
 card* deal(); 
