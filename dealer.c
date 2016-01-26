@@ -1,10 +1,12 @@
  #include "dealer.h"
 
-card* make_card( int value, char* name, int is_ace, card* c) {
-  printf("!!%s!!\n", name);
-  c = malloc( sizeof(card) );
+card* make_card( int value, char cname[], int is_ace, card* c) {
+  printf("!!%s!!\n", cname);
+  //printf("!!%s!!\n", c -> name);
+  c = (card *)malloc( sizeof(card) );
   c -> value = value;
-  c -> name = name;
+  c -> name = (char *)malloc( sizeof(char[256]) );
+  strcpy(c -> name, cname);
   c -> is_ace = is_ace;
   c -> next_card = NULL;
   
