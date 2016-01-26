@@ -85,7 +85,7 @@ If it is dealer's turn, end_game will be called
 Input:
 Output: Player number (0 == dealer)
 */
-int stand();
+int stand( int number_of_players, int player_index );
 
 /* --------------------------------------
 Dealer stops and finishes game.
@@ -95,3 +95,8 @@ Output: Game over status and result, as dealer is last to play
 */
 void end_game( int highest_player_score, int dealer_score );
 
+/* TO_DO
+
+CALCULATE DEALER AND PLAYER SCORE FUNCTIONS AND PUT IT ACCORDINGLY
+
+ */
