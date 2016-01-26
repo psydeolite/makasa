@@ -28,12 +28,48 @@ int main() {
   listen(socket_id, 1);
   
   
+<<<<<<< HEAD:#server.c#
+  //  printf("dealt it\n");
+  //continue game
+  player_index = 1; //starting from first player
+  while( player_index < number_of_players && player_index > 0 ) {
+  while (player_score<=21) {
+  /* 
+       PLAYER'S CHOICES HERE, DEALER IS BELOW:
+ 
+       Everyone's card info is transmitted to each player here, first card of dealer is hidden at this point. Each player makes their decisions and calls hit() or stand() accordingly.
+
+       ***I took the liberty of writing stand below***
+       Just add an if condition for when the right input
+
+       Once the last player stands, it will break out of the while loop and go to the dealer. See below for more info
+
+       Also, if card is an ace, make the player decide whether to have it as a 1 or 11. 1 is default.
+     */
+    listen(socket_id, 1);
+=======
   while (1) {
     struct sockaddr_in clientAddress;
+>>>>>>> 426a2dbd6eb6fc69c98ec5138290cabe481fbda2:server.c
     printf("<server> listening for player connection\n");
     socket_client=accept(socket_id, NULL, NULL);
     printf("<server> connected to player\n");
 
+<<<<<<< HEAD:#server.c#
+    char p_response[256];
+    write(socket_client, "hello", 5);
+    while (read(socket_client, p_response, 255)) {
+      printf("Received [%s] from client\n", p_response);
+    }
+
+    if( strcmp( p_response, 0 ) == 1 ) { //if hit
+      hit( players, number_of_cards, deck, player_index );
+      
+    }
+    else
+      player_index = stand( number_of_players, player_index );
+           
+=======
     //Number of players ( <= 4 )
     //printf("\n How many players want to play?: ");
     //user_input = malloc( 256 );
@@ -42,6 +78,7 @@ int main() {
       printf("input: %s\n", user_input);
       user_input[ strlen( user_input ) - 1] = 0; //truncate \n
       number_of_players = atoi( user_input ); //convert to int */
+>>>>>>> 426a2dbd6eb6fc69c98ec5138290cabe481fbda2:server.c
     
     number_of_players = 1;
   
