@@ -34,8 +34,10 @@ int main() {
   printf("input: %s\n", user_input);
   user_input[ strlen( user_input ) - 1] = 0; //truncate \n
   number_of_players = atoi( user_input ); //convert to int
-  printf("num play\n");
+  //printf("num play\n");
+  printf("%d",number_of_players);
   //Make the deck
+  //printf("pls");
   make_deck( deck );
   printf("made dek\n");
   number_of_cards = 52; //NUMBER OF CARDS AT THE START
