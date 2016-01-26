@@ -207,6 +207,7 @@ int main() {
   //DEALER'S TURN (player_index = 0)
   while( dealer_score < 17 ) {
     hit( players, number_of_cards, deck, player_index );
+    dealer_score = dealer_score( players );
   }
   
   end_game( highest_player_score, dealer_score ); //both still need to be calculated
