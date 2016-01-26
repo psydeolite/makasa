@@ -128,14 +128,16 @@ card* make_deck( card* current_card ) {
 }
 
 int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
-  printf("-------- The game has begun. The dealer will now deal. -----------");
-  ;
+  printf("------- The game has begun. The dealer will now deal. ---------\n");
   int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < number_of_players ) {
-    //players[i] = *random_card( deck, number_of_cards );
+    players[i] = *random_card( deck, number_of_cards );
+    number_of_cards--;
+    //printf("%s\n",players[i].name);
     players[i].next_card = random_card( deck, number_of_cards );
     number_of_cards--;
+    //printf("%s\n",players[i].next_card->name);
     i++;
   }
   return number_of_cards;
@@ -144,20 +146,23 @@ int deal( card* players, int number_of_cards, card* deck, int number_of_players 
 card* random_card( card* deck, int number_of_cards ) {
   srand(time(NULL));
   int r = rand() % number_of_cards;
-
+  if (r==number_of_cards-1) {
+    r--;
+  }
   card* current_card = deck;
   card* previous_card = deck;
   //cycles to a random card
-  while( r > 0 ) {
-    previous_card = current_card;
+  while( r > 1 ) {
+    //previous_card = current_card;
     current_card = current_card -> next_card;
     r--;
   }
+  card* ret = current_card->next_card;
   //re-links and returns the card
-  previous_card -> next_card = current_card -> next_card;
-  number_of_cards--;
+  current_card -> next_card = current_card -> next_card -> next_card;
+  //number_of_cards--;
   
-  return current_card;
+  return ret;
 }
 
 card* hit( card* players, int number_of_cards, card* deck, int player_index) {

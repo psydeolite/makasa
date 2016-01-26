@@ -27,28 +27,24 @@ int main() {
   bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
   
   //Number of players ( <= 4 )
-  printf("\n How many players want to play?: ");
-  user_input = malloc( 256 );
+  //printf("\n How many players want to play?: ");
+  //user_input = malloc( 256 );
   /*user_input in the form of #, for both choice (hit/stand) and for # of players ==> use atoi() to convert */
-  user_input = fgets( user_input, 256, stdin );
+  /*user_input = fgets( user_input, 256, stdin );
   printf("input: %s\n", user_input);
   user_input[ strlen( user_input ) - 1] = 0; //truncate \n
-  number_of_players = atoi( user_input ); //convert to int
-  //printf("num play\n");
-  printf("%d",number_of_players);
-  // printf("num play\n");
+  number_of_players = atoi( user_input ); //convert to int */
+  number_of_players = 1;
   //Make the deck
-  //printf("pls");
   deck = make_deck( deck );
-  //  printf("made dek\n");
   number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
   
   //Player/Dealer arrays
   number_of_players++; //for dealer
   //card players[ number_of_players ] = malloc( sizeof(card) * number_of_players );
-  //card players[4] = malloc( sizeof(card) * 4 );
-  card players[4];
+  //card players[5] = malloc( sizeof(card) * 5 );
+  card players[2];
 
   //start game
   printf("\n------------ Let's start the game! -----------\n");
@@ -57,8 +53,9 @@ int main() {
     printf("%s\n", deck -> name);
     deck = deck -> next_card;
     }*/
+  printf("------- The game has begun. The dealer will now deal. ---------\n");
   deal( players, number_of_cards, deck, number_of_players );
-
+  
   //  printf("dealt it\n");
   //continue game
   player_index = 1; //starting from first player
