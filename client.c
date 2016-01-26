@@ -59,21 +59,8 @@ int main() {
 
   i=connect(socket_id, (struct sockaddr *)&sock, sizeof(sock));
   printf("<client> connect returned: %d\n", i);
-
-  while (1) {
-    read(socket_id, buffer, sizeof(buffer));
-    printf("<client> received: [%s]\n", buffer);
-    //flush(buffer);
-    buffer[0]='\0';
-
-    printf("Choose one:\n");
-    printf("0: Hit\n");
-    printf("1: Stand\n");
-    fgets(buffer, sizeof(buffer), stdin);
-    printf("input: %s\n", buffer);
-    //write(
-    
-  }
+   
+  play(socket_id);
 
   return 0;
 }
