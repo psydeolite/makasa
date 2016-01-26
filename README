@@ -1,0 +1,18 @@
+Mariya Gedrich
+Katherine Gershfeld
+Samuel Zhang
+
+to compile:
+make
+
+to run server:
+./server
+
+to run client:
+./client
+
+server c and h
+
+client c and h
+
+dealer c and h
