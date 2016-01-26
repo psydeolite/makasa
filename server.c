@@ -53,7 +53,7 @@ int main() {
     printf("%s\n", deck -> name);
     deck = deck -> next_card;
     }*/
-  printf("------- The game has begun. The dealer will now deal. ---------\n");
+  printf("\n------- The game has begun. The dealer will now deal. ---------\n");
   deal( players, number_of_cards, deck, number_of_players );
   
   //  printf("dealt it\n");

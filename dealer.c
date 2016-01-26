@@ -1,7 +1,7 @@
- #include "dealer.h"
+#include "dealer.h"
 
 card* make_card( int value, char cname[], int is_ace, card* c) {
-  printf("!!%s!!\n", cname);
+  //printf("!!%s!!\n", cname);
   //printf("!!%s!!\n", c -> name);
   c = (card *)malloc( sizeof(card) );
   c -> value = value;
@@ -49,8 +49,8 @@ card* make_deck( card* current_card ) {
       deck2 -> next_card = current_card;
       deck2 = deck2 -> next_card;
     }
-    printf("%p %s\n", current_card, current_card->name);
-    printf("%p %s\n", deck -> next_card, deck->name);
+    //printf("%p %s\n", current_card, current_card->name);
+    //printf("%p %s\n", deck -> next_card, deck->name);
     current_card = current_card -> next_card;
 
     counter++;
@@ -100,7 +100,7 @@ card* make_deck( card* current_card ) {
   //Jack, Queen, King
   while( value <= 13) {
     counter = 0;
-    printf("j");
+    //printf("j");
     while( counter < 4 ) {
       char name[265];
       name[1] = suits[counter];
@@ -128,8 +128,7 @@ card* make_deck( card* current_card ) {
 }
 
 int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
-  printf("------- The game has begun. The dealer will now deal. ---------\n");
-  int i = 0;
+    int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < number_of_players ) {
     players[i] = *random_card( deck, number_of_cards );
