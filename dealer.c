@@ -42,8 +42,9 @@ int main() {
   
   //Player/Dealer arrays
   number_of_players++; //for dealer
-  card players[ number_of_players ] = malloc( sizeof(card) * number_of_players );
-
+  //card players[ number_of_players ] = malloc( sizeof(card) * number_of_players );
+  //card players[4] = malloc( sizeof(card) * 4 );
+  card players[4];
 
   //start game
   printf("\n------------ Let's start the game! -----------\n");
@@ -73,7 +74,7 @@ int main() {
     char* p_response;
     write(socket_client, "hello", 4);
     while (read(socket_client, p_response, 255)) {
-      printf("Received [%s] from client\n");
+      printf("Received [%s] from client\n", p_response);
     }
     
     //if( /* Player input == hit */ ) {
