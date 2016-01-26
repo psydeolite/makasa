@@ -27,7 +27,7 @@ int main() {
   bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
   
   //Number of players ( <= 4 )
-  printf("\n How many players want to play?");
+  printf("\n How many players want to play?: ");
   user_input = malloc( 256 );
   /*user_input in the form of #, for both choice (hit/stand) and for # of players ==> use atoi() to convert */
   user_input = fgets( user_input, 256, stdin );
@@ -36,10 +36,11 @@ int main() {
   number_of_players = atoi( user_input ); //convert to int
   //printf("num play\n");
   printf("%d",number_of_players);
+  // printf("num play\n");
   //Make the deck
   //printf("pls");
   make_deck( deck );
-  printf("made dek\n");
+  //  printf("made dek\n");
   number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
   
@@ -53,7 +54,7 @@ int main() {
   printf("\n------------ Let's start the game! -----------\n");
   deal( players, number_of_cards, deck, number_of_players );
 
-  printf("dealt it\n");
+  //  printf("dealt it\n");
   //continue game
   player_index = 1; //starting from first player
   while( player_index < number_of_players && player_index > 0 ) {
@@ -75,34 +76,45 @@ int main() {
     socket_client=accept(socket_id, NULL, NULL);
     printf("<server> connected to player\n");
 
-    char* p_response;
+    char p_response[256];
     write(socket_client, "hello", 4);
     while (read(socket_client, p_response, 255)) {
       printf("Received [%s] from client\n", p_response);
     }
     
-    //if( /* Player input == hit */ ) {
+    //if(!strcmp(p_response, "0")) { //1 is hit code
     //current_card = hit( players, number_of_cards, deck, player_index );
-    // if( current_card -> is_ace == 1) { // ace
+    //if( current_card -> is_ace == 1) { // ace
+    //	write(socket_client, "ace", 2);
+    //	while (read(socket_client, p_response, 255)) {
+    //	  printf("Received [%s] from client\n", p_response);
+    //	}
+    //	if (!strcmp(p_response, "0")) {
+    //	  ace_choice=1;
+    //	} else if (!strcmp(p_response, "1")) {
+    //	  ace_choice=11;
+    //	}
+	
 	/* Make player choose 1 or 11 here using int "ace_choice"
 	   If player chooses one, don't change ace_choice.
 	 */
 
 	/* Change ace_choice here if applicable */
 	
-	//if( ace_choice == 11 ) {
-    // cycle_card = players[ player_index ];
+    //	if( ace_choice == 11 ) {
+    //	  cycle_card = players[ player_index ];
     //	  while( cycle_card != current_card )
     //	    cycle_card = cycle_card -> next_card;
     //	}
-    // }
     //}
-    //else /* player input == stand */
-	//player_index = stand( number_of_players, player_index );
-
-    current_player_score = player_score( players, player_index - 1);
-    if( current_player_score > highest_player_score )
-      highest_player_score = current_player_score;
+    //}
+    //else {/* player input == stand */
+    //	player_index = stand( number_of_players, player_index );
+    //}
+    
+    //current_player_score = player_score( players, player_index - 1);
+    //if( current_player_score > highest_player_score )
+    // highest_player_score = current_player_score;
     
     /*Send players array to server/client and refresh graphical output */
   }
