@@ -31,9 +31,6 @@ void make_deck( card* deck) {
     //skips zeroth place
     previous_card -> next_card = current_card;
     previous_card = current_card;
-    printf("prev\n");
-    current_card = current_card -> next_card;
-    printf("cirrent\n");
     
     counter++;
   }
