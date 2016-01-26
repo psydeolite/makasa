@@ -2,7 +2,7 @@
 
 void play(the_sock) {
   char user_in[256];
-  card* deal;
+  char* deal;
   int hand_val;
   int i;
   //char c[256];
