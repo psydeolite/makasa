@@ -3,6 +3,7 @@
 int main() {
   int socket_id;
   char buffer[256];
+  char send[256];
   int i;
   
   socket_id=socket(AF_INET, SOCK_STREAM, 0);
@@ -20,5 +21,9 @@ int main() {
   read(socket_id, buffer, sizeof(buffer));
   printf("<client> received: [%s]\n", buffer);
 
+  printf("Respond: ");
+  fgets(send, sizeof(send), stdin);
+  write(socket_id, send, 255);
+  
   return 0;
 }

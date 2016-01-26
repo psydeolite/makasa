@@ -16,6 +16,16 @@ int main() {
   
   printf("\n------------ Welcome to Blackjack! ---------------\n");
 
+  int socket_id, socket_client;
+  
+  socket_id=socket(AF_INET, SOCK_STREAM, 0);
+  
+  struct sockaddr_in listener;
+  listener.sin_family = AF_INET;
+  listener.sin_port=htons(24601);
+  listener.sin_addr.s_addr=INADDR_ANY;
+  bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
+  
   //Number of players ( <= 4 )
   printf("\n How many players want to play?");
   user_input = malloc( 256 );
@@ -54,7 +64,18 @@ int main() {
 
        Also, if card is an ace, make the player decide whether to have it as a 1 or 11. 1 is default.
      */
+    listen(socket_id, 1);
+    printf("<server> listening for player connection\n");
 
+    socket_client=accept(socket_id, NULL, NULL);
+    printf("<server> connected to player\n");
+
+    char* p_reponse;
+    write(socket_client, "hello", 4);
+    while (read(socket_client, p_response, 255)) {
+      printf("Received [%s] from client\n");
+    }
+    
     if( /* Player input == hit */ ) {
       current_card = hit( players, number_of_cards, deck, player_index );
       if( current_card -> is_ace == 1) { // ace
