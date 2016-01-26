@@ -85,7 +85,7 @@ If it is dealer's turn, end_game will be called
 Input:
 Output: Player number (0 == dealer)
 */
-int stand();
+int stand( int number_of_players, int player_index );
 
 /* --------------------------------------
 Dealer stops and finishes game.

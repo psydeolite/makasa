@@ -74,9 +74,9 @@ int deal( card* players, int number_of_cards, card* deck, int number_of_players 
   int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < number_of_players ) {
-    players[i] = *random_card( deck, number_of_cards );
-    players[i].next_card = random_card( deck, number_of_cards );
-    number_of_cards -= 2;
+    players[i] = *random_card( number_of_cards );
+    players[i].next_card = random_card( number_of_cards );
+    number_of_cards--;
     i--;
   }
   return number_of_cards;
@@ -101,7 +101,28 @@ card* random_card( card* deck, int number_of_cards ) {
   return current_card;
 }
 
-void stand( int highest_player_score, int dealer_score ) {
+card* hit( card* players, int number_of_cards, card* deck, int player_index) {
+  card* current_card = random_card( deck, number_of_cards );
+  players[ player_index ] = *current_card;
+  number_of_cards--;
+
+  return current_card;
+}
+
+int stand( int number_of_players, int player_index ) {
+  if( player_index == 0 ) //dealer, end game
+    return -1;
+  else 
+    player_index++;
+
+  //If last player, go to dealer
+  if( player_index > number_of_players )
+    return 0;
+  else
+    return player_index;
+}
+
+void end_game( int highest_player_score, int dealer_score ) {
   if( highest_player_score > dealer_score )
     printf("The player has won!");
   else if( dealer_score > highest_player_score)
@@ -111,31 +132,60 @@ void stand( int highest_player_score, int dealer_score ) {
 }
 
 int main() {
+  char* user_input;
+  int number_of_players;
+  int number_of_cards;
+  int player_index;
+  int highest_player_score;
+  int dealer_score;
+  int is_end;
+  card* deck;
+  
+  
   printf("\n------------ Welcome to Blackjack! ---------------\n");
 
   //Number of players ( <= 4 )
   printf("\n How many players want to play?");
-  char* user_input = malloc( 256 );
+  user_input = malloc( 256 );
   /*user_input in the form of #, for both choice (hit/stand) and for # of players ==> use atoi() to convert */
   user_input = fgets( user_input, 256, stdin );
 
   user_input[ strlen( user_input ) - 1] = 0; //truncate \n
-  int number_of_players = atoi( user_input ); //convert to int
+  number_of_players = atoi( user_input ); //convert to int
   
   //Make the deck
-  card* deck;
   make_deck( deck );
-  int number_of_cards = 52; //NUMBER OF CARDS AT THE START
+  number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
   
   //Player/Dealer arrays
   number_of_players++; //for dealer
-  card players[ number_of_players] = malloc( sizeof(card) * number_of_players );
+  card players[ number_of_players ] = malloc( sizeof(card) * number_of_players );
 
 
   //start game
   printf("\n------------ Let's start the game! -----------\n");
   deal( players, number_of_cards, deck, number_of_players );
+
+  //continue game
+  player_index = 1; //starting from first player
+  while( player_index < number_of_players && player_index > 0 ) {
+    /* 
+       RUN GAME
+       YOU CAN CALL HIT AND STAND HERE
+       INCREMENT player_turn 
+     */
+
+    player_index = stand( number_of_players, player_index );
+  }
+  
+  player_index = 0;
+  //DEALER'S TURN (player_index = 0)
+  while( dealer_score < 17 ) {
+    hit( players, number_of_cards, deck, player_index );
+  }
+  
+  end_game( highest_player_score, dealer_score ); //both still need to be calculated
 
   
   /*
