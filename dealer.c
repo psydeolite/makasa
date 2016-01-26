@@ -26,7 +26,7 @@ void make_deck( card* deck) {
   char* name = "A";
   while( counter < 4) {
     printf("%d", counter);
-    make_card( value, name + suits[counter], is_ace, current_card);
+    current_card = make_card( value, name + suits[counter], is_ace, current_card);
 
     //skips zeroth place
     previous_card -> next_card = current_card;
