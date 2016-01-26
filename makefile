@@ -3,13 +3,13 @@ all: ./dealer ./player
 	dealr
 
 playr: player.c player.h 
-	gcc player.c player.h -o player
+	gcc player.c -o player
 
-dealr: dealer.c dealer.h control.o
-	gcc dealer.c dealer.h control.o -o dealer
+dealr: dealer.c control.o
+	gcc dealer.c control.o -o dealer
 
 control: control.c control.h
-	gcc -c control.c control.h
+	gcc -c control.c
 
 clean:
 	rm -f *~
