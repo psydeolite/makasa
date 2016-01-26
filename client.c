@@ -1,5 +1,28 @@
 #include "client.h"
 
+void play(the_sock) {
+  char user_in[256];
+  char deal[256];
+  int hand_val;
+  int i;
+  while (1==1) {
+    read(the_sock, deal, sizeof(user_in));
+    printf("<client> received [%s] from server\n", deal);
+    printf("Choose one:\n");
+    printf("0: Hit\n1:Stand\n");
+    //user_in[0]='\0';
+    
+    fgets(user_in, sizeof(user_in), stdin);
+    printf("<client> just chose %s\n", user_in);
+
+    write(the_sock, user_in, sizeof(user_in));
+
+    deal[0]='\0';
+    //dealer sends some shit back; if player hit, sends another card
+    //if player stand sends back winner?
+    read(the_sock, deal, sizeof(deal));
+    
+    
 int main() {
   int socket_id;
   char buffer[256];
@@ -20,11 +43,16 @@ int main() {
   while (1) {
     read(socket_id, buffer, sizeof(buffer));
     printf("<client> received: [%s]\n", buffer);
-    fflush(buffer);
+    //flush(buffer);
+    buffer[0]='\0';
 
-    printf("Hit, Stand, or Double?");
+    printf("Choose one:\n");
+    printf("0: Hit\n");
+    printf("1: Stand\n");
     fgets(buffer, sizeof(buffer), stdin);
-    write
+    printf("input: %s\n", buffer);
+    write(
+    
   }
 
   return 0;

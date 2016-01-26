@@ -11,6 +11,12 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#include "player.h"
+typedef struct card {
+  int value;
+  int is_ace;
+  char* name;
+  
+  struct card* next_card;
+} card; 
 
 #endif
