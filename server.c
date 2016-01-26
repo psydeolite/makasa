@@ -31,7 +31,9 @@ int main() {
   while (1) {
     struct sockaddr_in clientAddress;
     printf("<server> listening for player connection\n");
+    printf("SOCKEY ID: %i\n", socket_id);
     socket_client=accept(socket_id, NULL, NULL);
+    printf("socketid: %d\n", socket_client);
     printf("<server> connected to player\n");
 
     //Number of players ( <= 4 )
@@ -51,7 +53,7 @@ int main() {
     //Player/Dealer arrays
     number_of_players++; //for dealer
     card players[2];
-
+    write( socket_client, "hello", 10 );
     //start game
     printf("\n------------ Let's start the game! -----------\n");
     

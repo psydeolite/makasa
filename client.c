@@ -8,9 +8,12 @@ void play(the_sock) {
   //char c[256];
   //char char2[256];
   
+  
   while (1==1) {
-    read(the_sock, deal, sizeof(user_in));
-   
+    printf("inside play loop\n");
+    //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
+    i=read(the_sock, user_in, sizeof(user_in));
+    printf("read result: %d\n",i);
     printf("<client> received [%s] from server\n", deal);
     printf("Choose one:\n");
     printf("0: Hit\n1:Stand\n");
@@ -57,10 +60,12 @@ int main() {
   inet_aton("127.0.0.1", &(sock.sin_addr));
   bind(socket_id, (struct sockaddr *)&sock, sizeof(sock));
 
+  printf("before\n");
   i=connect(socket_id, (struct sockaddr *)&sock, sizeof(sock));
   printf("<client> connect returned: %d\n", i);
-   
+  printf("mid\n");
+  printf("SOCKET ID: %i\n", socket_id); 
   play(socket_id);
-
+  
   return 0;
 }
