@@ -27,17 +27,17 @@ int main() {
   bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
   
   //Number of players ( <= 4 )
-  printf("\n How many players want to play?");
+  printf("\n How many players want to play?: ");
   user_input = malloc( 256 );
   /*user_input in the form of #, for both choice (hit/stand) and for # of players ==> use atoi() to convert */
   user_input = fgets( user_input, 256, stdin );
   printf("input: %s\n", user_input);
   user_input[ strlen( user_input ) - 1] = 0; //truncate \n
   number_of_players = atoi( user_input ); //convert to int
-  printf("num play\n");
+  // printf("num play\n");
   //Make the deck
   make_deck( deck );
-  printf("made dek\n");
+  //  printf("made dek\n");
   number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
   
@@ -51,7 +51,7 @@ int main() {
   printf("\n------------ Let's start the game! -----------\n");
   deal( players, number_of_cards, deck, number_of_players );
 
-  printf("dealt it\n");
+  //  printf("dealt it\n");
   //continue game
   player_index = 1; //starting from first player
   while( player_index < number_of_players && player_index > 0 ) {

@@ -14,6 +14,8 @@ void make_deck( card* deck) {
   /* Aces to Kings, up the suits (Diamond, Club, Heart, Spade) */
   int counter = 0;
   int value, is_ace;
+  setvbuf (stdout, NULL, _IONBF, 0);
+  printf("wee");
   char suits[4] = "DCHS"; //diamond, clubs, hearts, spades
 
   card* current_card = deck;
@@ -23,6 +25,7 @@ void make_deck( card* deck) {
   is_ace = 1;
   char* name = "A";
   while( counter < 4) {
+    printf("%d", counter);
     make_card( value, name + suits[counter], is_ace, current_card);
     previous_card = current_card;
     current_card = current_card -> next_card;
