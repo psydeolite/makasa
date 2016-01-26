@@ -1,4 +1,5 @@
 all: ./server ./client
+	dealer
 	server
 	client
 

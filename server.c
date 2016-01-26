@@ -58,7 +58,7 @@ int main() {
     printf("\n------- The game has begun. The dealer will now deal. ---------\n");
     deal( players, number_of_cards, deck, number_of_players );
     card* player_last = players[1].next_card;
-    card* dealer_last = dealers[1].next_card;
+    card* dealer_last = players[1].next_card;
  
     player_index = 1; //starting from first player
 
