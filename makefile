@@ -1,20 +1,15 @@
-all: main.o client.o server.o chat.o
-	gcc -o main.o server.o chat.o client.o blackjack
+all: ./dealer ./player
+	playr
+	dealr
 
-main: main.c main.h
-	gcc -c main.c 
+playr: player.c player.h 
+	gcc player.c player.h -o player
 
-client: client.c client.h
-	gcc -c client.c
+dealr: dealer.c dealer.h control.o
+	gcc dealer.c dealer.h control.o -o dealer
 
-server: server.c server.h
-	gcc -c server.c
-
-chat: chat.c chat.h
-	gcc -c chat.c
-
-run: blackjack
-	./blackjack
+control: control.c control.h
+	gcc -c control.c control.h
 
 clean:
 	rm -f *~
