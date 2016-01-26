@@ -1,15 +1,15 @@
-all: ./dealer ./player
-	playr
-	dealr
+all: ./server ./client
+	server
+	client
 
-playr: player.c player.h 
-	gcc player.c -o player
+client: client.c client.h 
+	gcc client.c -o client
 
-dealr: dealer.c control.o
-	gcc dealer.c control.o -o dealer
+server: server.c dealer.o
+	gcc server.c dealer.o -o server
 
-control: control.c control.h
-	gcc -c control.c
+dealer: dealer.c dealer.h
+	gcc -c dealer.c
 
 clean:
 	rm -f *~
