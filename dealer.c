@@ -7,7 +7,7 @@ int main() {
   int player_index;
   int current_player_score;
   int highest_player_score;
-  int dealer_score;
+  int d_score;
   int is_end;
   int ace_choice;
   card* deck;
@@ -70,30 +70,30 @@ int main() {
     socket_client=accept(socket_id, NULL, NULL);
     printf("<server> connected to player\n");
 
-    char* p_reponse;
+    char* p_response;
     write(socket_client, "hello", 4);
     while (read(socket_client, p_response, 255)) {
       printf("Received [%s] from client\n");
     }
     
-    if( /* Player input == hit */ ) {
-      current_card = hit( players, number_of_cards, deck, player_index );
-      if( current_card -> is_ace == 1) { // ace
+    //if( /* Player input == hit */ ) {
+    //current_card = hit( players, number_of_cards, deck, player_index );
+    // if( current_card -> is_ace == 1) { // ace
 	/* Make player choose 1 or 11 here using int "ace_choice"
 	   If player chooses one, don't change ace_choice.
 	 */
 
 	/* Change ace_choice here if applicable */
 	
-	if( ace_choice == 11 ) {
-	  cycle_card = players[ player_index ];
-	  while( cycle_card != current_card )
-	    cycle_card = cycle_card -> next_card;
-	}
-      }
-    }
-    else /* player input == stand */
-      player_index = stand( number_of_players, player_index );
+	//if( ace_choice == 11 ) {
+    // cycle_card = players[ player_index ];
+    //	  while( cycle_card != current_card )
+    //	    cycle_card = cycle_card -> next_card;
+    //	}
+    // }
+    //}
+    //else /* player input == stand */
+	//player_index = stand( number_of_players, player_index );
 
     current_player_score = player_score( players, player_index - 1);
     if( current_player_score > highest_player_score )
@@ -108,15 +108,15 @@ int main() {
     
     Here, the dealer's hidden card is displayed (Katherine). As with before, with each new card, the screen should refresh with new graphical output
    */
-  while( dealer_score < 17 ) {
+  while( d_score < 17 ) {
     hit( players, number_of_cards, deck, player_index );
-    dealer_score = dealer_score( players );
+    d_score = dealer_score( players );
 
     /* Send players array to server/client and refresh graphical output */
   }
 
   //GAME ENDS
-  end_game( highest_player_score, dealer_score ); //both still need to be calculated
+  end_game( highest_player_score, d_score ); //both still need to be calculated
 
   
   /*

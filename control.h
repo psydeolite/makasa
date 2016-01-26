@@ -43,7 +43,6 @@ Only run once when starting new games (in main)
  - Last card of deck points to null
 
 Input: First card, declared in main
-
 Output: Array of card structs referenced through the master array "deck"
 */
 void make_deck( card* deck); 

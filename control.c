@@ -75,8 +75,8 @@ int deal( card* players, int number_of_cards, card* deck, int number_of_players 
   int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < number_of_players ) {
-    players[i] = *random_card( number_of_cards );
-    players[i].next_card = random_card( number_of_cards );
+    players[i] = *random_card( deck, number_of_cards );
+    players[i].next_card = random_card( deck, number_of_cards );
     number_of_cards--;
     i--;
   }
