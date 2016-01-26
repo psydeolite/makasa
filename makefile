@@ -1,4 +1,4 @@
-all: ./dealer ./player
+all: ./player ./dealer
 	playr
 	dealr
 
