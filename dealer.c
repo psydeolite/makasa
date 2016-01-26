@@ -177,6 +177,7 @@ int main() {
   int number_of_players;
   int number_of_cards;
   int player_index;
+  int current_player_score;
   int highest_player_score;
   int dealer_score;
   int is_end;
@@ -245,6 +246,10 @@ int main() {
     else /* player input == stand */
       player_index = stand( number_of_players, player_index );
 
+    current_player_score = player_score( players, player_index - 1);
+    if( current_player_score > highest_player_score )
+      highest_player_score = current_player_score;
+    
     /*Send players array to server/client and refresh graphical output */
   }
   
