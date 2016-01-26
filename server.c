@@ -53,8 +53,11 @@ int main() {
   //start game
   printf("\n------------ Let's start the game! -----------\n");
   
-  printf("%s", deck -> next_card -> name);
-  //deal( players, number_of_cards, deck, number_of_players );
+  /*while (deck) {
+    printf("%s\n", deck -> name);
+    deck = deck -> next_card;
+    }*/
+  deal( players, number_of_cards, deck, number_of_players );
 
   //  printf("dealt it\n");
   //continue game

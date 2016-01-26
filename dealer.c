@@ -13,35 +13,53 @@ card* make_card( int value, char cname[], int is_ace, card* c) {
   return c;
 }
 
-card* make_deck( card* deck) {
+card* make_deck( card* current_card ) {
   /* Aces to Kings, up the suits (Diamond, Club, Heart, Spade) */
   int counter = 0;
   int value, is_ace;
   char suits[4] = "DCHS"; //diamond, clubs, hearts, spades
  
-  card* current_card;
+  card* deck;
+  card* deck2;
   //card* previous_card = deck;
   //Aces
   value = 1;
   is_ace = 1;
   char* name = "A";
-  while( counter < 4) {
+  while( counter < 4 ) {
     char nom[256];
     nom[0] = *name;
     nom[1] = suits[counter];
     nom[2] = '\0';
+    
+    //deck = make_card( value, nom, is_ace, current_card);
+      //printf("%s\n", deck -> name);
+      //current_card = deck -> next_card;
+    //} else {
     current_card = make_card( value, nom, is_ace, current_card);
-    if (counter == 0) deck = current_card;
+      //printf("%s\n", deck -> next_card -> name);
+      
+    if (counter == 0) {
+      deck = current_card;
+    }
+    if (counter == 1) {
+      deck -> next_card = current_card;
+      deck2 = deck -> next_card;
+    } else {
+      deck2 -> next_card = current_card;
+      deck2 = deck2 -> next_card;
+    }
+    printf("%p %s\n", current_card, current_card->name);
+    printf("%p %s\n", deck -> next_card, deck->name);
     current_card = current_card -> next_card;
+
     counter++;
   }
 
   //2 to 9
-  printf("j");
   value++; // value == 2
   is_ace = 0; 
   while( value <= 9) {
-    printf("j");
     counter = 0;
     while( counter < 4) {
       //converts integer value to string, base 10
@@ -52,7 +70,10 @@ card* make_deck( card* deck) {
       name[2] = '\0';
       current_card = make_card( value, name, is_ace, current_card);
       //previous_card = current_card;
+      deck2 -> next_card = current_card;
+      deck2 = deck2 -> next_card;
       current_card = current_card -> next_card;
+      //printf("%s", deck -> next_card -> name);
       counter++;
     }
     value++;
@@ -69,6 +90,8 @@ card* make_deck( card* deck) {
     name[3] = '\0';
     current_card = make_card( value, name, is_ace, current_card);
     //previous_card = current_card;
+    deck2 -> next_card = current_card;
+    deck2 = deck2 -> next_card;
     current_card = current_card -> next_card;  
     counter++;
   }
@@ -93,6 +116,8 @@ card* make_deck( card* deck) {
 	current_card = make_card( 10, name, is_ace, current_card);
       }
       //previous_card = current_card;
+      deck2 -> next_card = current_card;
+      deck2 = deck2 -> next_card;
       current_card = current_card -> next_card;
 
       counter++;
@@ -108,10 +133,10 @@ int deal( card* players, int number_of_cards, card* deck, int number_of_players 
   int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < number_of_players ) {
-    players[i] = *random_card( deck, number_of_cards );
+    //players[i] = *random_card( deck, number_of_cards );
     players[i].next_card = random_card( deck, number_of_cards );
     number_of_cards--;
-    i--;
+    i++;
   }
   return number_of_cards;
 }
