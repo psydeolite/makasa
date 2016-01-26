@@ -110,9 +110,3 @@ Input: The highest score from among the players
 Output: Game over status and result, as dealer is last to play
 */
 void end_game( int highest_player_score, int dealer_score );
-
-/* TO_DO
-
-CALCULATE DEALER AND PLAYER SCORE FUNCTIONS AND PUT IT ACCORDINGLY
-
- */
