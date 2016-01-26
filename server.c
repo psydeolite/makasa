@@ -39,7 +39,7 @@ int main() {
   // printf("num play\n");
   //Make the deck
   //printf("pls");
-  make_deck( deck );
+  deck = make_deck( deck );
   //  printf("made dek\n");
   number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
@@ -52,7 +52,9 @@ int main() {
 
   //start game
   printf("\n------------ Let's start the game! -----------\n");
-  deal( players, number_of_cards, deck, number_of_players );
+  
+  printf("%s", deck -> next_card -> name);
+  //deal( players, number_of_cards, deck, number_of_players );
 
   //  printf("dealt it\n");
   //continue game

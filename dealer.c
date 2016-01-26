@@ -13,13 +13,13 @@ card* make_card( int value, char cname[], int is_ace, card* c) {
   return c;
 }
 
-void make_deck( card* deck) {
+card* make_deck( card* deck) {
   /* Aces to Kings, up the suits (Diamond, Club, Heart, Spade) */
   int counter = 0;
   int value, is_ace;
   char suits[4] = "DCHS"; //diamond, clubs, hearts, spades
  
-  card* current_card = deck;
+  card* current_card;
   //card* previous_card = deck;
   //Aces
   value = 1;
@@ -31,6 +31,7 @@ void make_deck( card* deck) {
     nom[1] = suits[counter];
     nom[2] = '\0';
     current_card = make_card( value, nom, is_ace, current_card);
+    if (counter == 0) deck = current_card;
     current_card = current_card -> next_card;
     counter++;
   }
@@ -98,6 +99,7 @@ void make_deck( card* deck) {
     }
     value++;
   }
+  return deck;
 }
 
 int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
