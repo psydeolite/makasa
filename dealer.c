@@ -5,7 +5,8 @@ card* make_card( int value, char* name, int is_ace, card* c) {
   c -> value = value;
   c -> name = name;
   c -> is_ace = is_ace;
-
+  c -> next_card = NULL;
+  
   return c;
 }
 
@@ -126,24 +127,40 @@ int dealer_score( card* players ) {
   int score;
   int ace_counter;
   card* current_card;
-  //dealer
-  if( player_index == 0 ) {
-    current_card = &players[0];
-    while( current_card != NULL ) {
-      if( current_card -> is_ace == 0) //not ace
-	score += current_card -> value;	
-      else //ace
-	ace_counter++;
-      current_card = current_card -> next_card;
-    }
-    while( ace_counter > 0 ) {
-      if( score < 11 )
-	score += 11;
-      else
-	score++;
-      ace_counter--;
-    }
+  
+  current_card = &players[0];
+  while( current_card != NULL ) {
+    if( current_card -> is_ace == 0) //not ace
+      score += current_card -> value;	
+    else //ace
+      ace_counter++;
+    current_card = current_card -> next_card;
   }
+  while( ace_counter > 0 ) {
+    if( score < 11 )
+      score += 11;
+    else
+      score++;
+    ace_counter--;
+  }
+
+  return score;
+}
+
+
+int player_score( card* players, int player_index ) {
+
+  int score;
+  card* current_card;
+  
+  current_card = &players[0];
+  while( current_card != NULL ) {
+    score += current_card -> value; //add to score
+    
+    current_card = current_card -> next_card; //next card
+  }
+
+  return score;
 }
 
 void end_game( int highest_player_score, int dealer_score ) {
@@ -163,8 +180,10 @@ int main() {
   int highest_player_score;
   int dealer_score;
   int is_end;
+  int ace_choice;
   card* deck;
-  
+  card* current_card;
+  card* cycle_card;
   
   printf("\n------------ Welcome to Blackjack! ---------------\n");
 
@@ -195,21 +214,54 @@ int main() {
   player_index = 1; //starting from first player
   while( player_index < number_of_players && player_index > 0 ) {
     /* 
-       RUN GAME
-       YOU CAN CALL HIT AND STAND HERE
-       INCREMENT player_turn 
+       PLAYER'S CHOICES HERE, DEALER IS BELOW:
+ 
+       Everyone's card info is transmitted to each player here, first card of dealer is hidden at this point. Each player makes their decisions and calls hit() or stand() accordingly.
+
+       ***I took the liberty of writing stand below***
+       Just add an if condition for when the right input
+
+       Once the last player stands, it will break out of the while loop and go to the dealer. See below for more info
+
+       Also, if card is an ace, make the player decide whether to have it as a 1 or 11. 1 is default.
      */
 
-    player_index = stand( number_of_players, player_index );
+    if( /* Player input == hit */ ) {
+      current_card = hit( players, number_of_cards, deck, player_index );
+      if( current_card -> is_ace == 1) { // ace
+	/* Make player choose 1 or 11 here using int "ace_choice"
+	   If player chooses one, don't change ace_choice.
+	 */
+
+	/* Change ace_choice here if applicable */
+	
+	if( ace_choice == 11 ) {
+	  cycle_card = players[ player_index ];
+	  while( cycle_card != current_card )
+	    cycle_card = cycle_card -> next_card;
+	}
+      }
+    }
+    else /* player input == stand */
+      player_index = stand( number_of_players, player_index );
+
+    /*Send players array to server/client and refresh graphical output */
   }
   
   player_index = 0;
-  //DEALER'S TURN (player_index = 0)
+  /*
+    DEALER'S TURN (player_index = 0)
+    
+    Here, the dealer's hidden card is displayed (Katherine). As with before, with each new card, the screen should refresh with new graphical output
+   */
   while( dealer_score < 17 ) {
     hit( players, number_of_cards, deck, player_index );
     dealer_score = dealer_score( players );
+
+    /* Send players array to server/client and refresh graphical output */
   }
-  
+
+  //GAME ENDS
   end_game( highest_player_score, dealer_score ); //both still need to be calculated
 
   

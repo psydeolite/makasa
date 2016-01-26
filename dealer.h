@@ -93,8 +93,15 @@ Calculates and returns dealer's score
 Input: players linked list
 Output: The Score (total value of cards)
  */
-int dealer_score( card* players);
+int dealer_score( card* players );
 
+/* ------------------------------
+Calculates and returns player's score
+
+Input: player and player_index
+Output: that player's score
+*/
+int player_score( card* players, int player_index );
 
 
 /* --------------------------------------
