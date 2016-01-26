@@ -1,6 +1,7 @@
 #include "dealer.h"
 
 card* make_card( int value, char* name, int is_ace, card* c) {
+  printf("!!%s!!\n", name);
   c = malloc( sizeof(card) );
   c -> value = value;
   c -> name = name;
@@ -12,33 +13,47 @@ card* make_card( int value, char* name, int is_ace, card* c) {
 
 void make_deck( card* deck) {
   /* Aces to Kings, up the suits (Diamond, Club, Heart, Spade) */
+  printf("pls");
   int counter = 0;
   int value, is_ace;
   char suits[4] = "DCHS"; //diamond, clubs, hearts, spades
-
+ 
   card* current_card = deck;
   card* previous_card = deck;
   //Aces
   value = 1;
   is_ace = 1;
   char* name = "A";
+  printf("pls");
   while( counter < 4) {
-    make_card( value, name + suits[counter], is_ace, current_card);
-    previous_card = current_card;
+    char nom[256];
+    nom[0] = *name;
+    nom[1] = suits[counter];
+    nom[2] = '\0';
+    current_card = make_card( value, nom, is_ace, current_card);
+    //printf("%s\n",current_card -> );//, current_card -> next_card -> name);
+    //previous_card = current_card;
     current_card = current_card -> next_card;
-    
     counter++;
   }
   //2 to 10
+  printf("j");
   value++; // value == 2
   is_ace = 0; 
-  while( value <= 10) {
+  while( value <= 9) {
+    printf("j");
     counter = 0;
     while( counter < 4) {
       //converts integer value to string, base 10
-      sprintf( name, "%d", value );
-      
-      make_card( value, name + suits[counter], is_ace, current_card);
+      char name[256];
+      char *nom;
+      //name[2] = '\0';
+      //name[0] = value;
+      sprintf( &name[0], "%d", value );
+      name[1] = suits[counter];
+      name[2] = '\0';
+      //strcat(strcpy(name,nom),&suits[counter]);
+      current_card = make_card( value, name, is_ace, current_card);
       previous_card = current_card;
       current_card = current_card -> next_card;
 
@@ -46,9 +61,10 @@ void make_deck( card* deck) {
     }
     value++;
   }
-  //Jack, Queen, King
+  /*//Jack, Queen, King
   while( value <= 13) {
     counter = 0;
+    printf("j");
     while( counter < 4 ) {
       if( value == 11) { //Jacks
 	name = "J";
@@ -67,7 +83,8 @@ void make_deck( card* deck) {
       counter++;
     }
     value++;
-  }}
+    }*/
+}
 
 int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
   printf("-------- The game has begun. The dealer will now deal. -----------");
