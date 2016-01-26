@@ -87,6 +87,16 @@ Output: Player number (0 == dealer)
 */
 int stand( int number_of_players, int player_index );
 
+/* ---------------------------------------
+Calculates and returns dealer's score
+
+Input: players linked list
+Output: The Score (total value of cards)
+ */
+int dealer_score( card* players);
+
+
+
 /* --------------------------------------
 Dealer stops and finishes game.
 

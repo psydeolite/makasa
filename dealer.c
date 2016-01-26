@@ -122,6 +122,30 @@ int stand( int number_of_players, int player_index ) {
     return player_index;
 }
 
+int dealer_score( card* players ) {
+  int score;
+  int ace_counter;
+  card* current_card;
+  //dealer
+  if( player_index == 0 ) {
+    current_card = &players[0];
+    while( current_card != NULL ) {
+      if( current_card -> is_ace == 0) //not ace
+	score += current_card -> value;	
+      else //ace
+	ace_counter++;
+      current_card = current_card -> next_card;
+    }
+    while( ace_counter > 0 ) {
+      if( score < 11 )
+	score += 11;
+      else
+	score++;
+      ace_counter--;
+    }
+  }
+}
+
 void end_game( int highest_player_score, int dealer_score ) {
   if( highest_player_score > dealer_score )
     printf("The player has won!");
