@@ -68,16 +68,18 @@ void make_deck( card* deck) {
     value++;
   }}
 
-int deal( card* players, int number_of_cards, card* deck ) {
+int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
   printf("-------- The game has begun. The dealer will now deal. -----------");
   ;
-
-  //Dealer (hide second card in graphics only)
-  players[0] = *random_card( deck, number_of_cards );
-  players[0].next_card = random_card( deck, number_of_cards );
-
-  //Players
-  
+  int i = 0;
+  //Dealer + Players (hide second card in graphics only for dealer)
+  while( i < number_of_players ) {
+    players[i] = *random_card( deck, number_of_cards );
+    players[i].next_card = random_card( deck, number_of_cards );
+    number_of_cards -= 2;
+    i--;
+  }
+  return number_of_cards;
 }
 
 card* random_card( card* deck, int number_of_cards ) {
@@ -127,12 +129,13 @@ int main() {
 
   
   //Player/Dealer arrays
-  card players[ number_of_players + 1 ] = malloc( sizeof(card) * number_of_players );
+  number_of_players++; //for dealer
+  card players[ number_of_players] = malloc( sizeof(card) * number_of_players );
 
 
   //start game
   printf("\n------------ Let's start the game! -----------\n");
-  deal( players, number_of_cards, deck );
+  deal( players, number_of_cards, deck, number_of_players );
 
   
   /*
