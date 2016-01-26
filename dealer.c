@@ -27,12 +27,18 @@ void make_deck( card* deck) {
   while( counter < 4) {
     printf("%d", counter);
     make_card( value, name + suits[counter], is_ace, current_card);
+
+    //skips zeroth place
+    previous_card -> next_card = current_card;
     previous_card = current_card;
     printf("prev\n");
     current_card = current_card -> next_card;
     printf("cirrent\n");
+    
     counter++;
   }
+  //shifts back to zeroth
+  deck = deck -> next_card;
   //2 to 10
   value++; // value == 2
   is_ace = 0; 
