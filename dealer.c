@@ -164,12 +164,13 @@ card* random_card( card* deck, int number_of_cards ) {
   return ret;
 }
 
-card* hit( card* players, int number_of_cards, card* deck, int player_index) {
+char* hit( card* players, int number_of_cards, card* deck, int player_index) {
   card* current_card = random_card( deck, number_of_cards );
   players[ player_index ] = *current_card;
   number_of_cards--;
 
-  return current_card;
+  //return current_card;
+  return current_card->name;
 }
 
 int stand( int number_of_players, int player_index ) {

@@ -60,7 +60,8 @@ int main() {
   //continue game
   player_index = 1; //starting from first player
   while( player_index < number_of_players && player_index > 0 ) {
-    /* 
+  while (player_score<=21) {
+  /* 
        PLAYER'S CHOICES HERE, DEALER IS BELOW:
  
        Everyone's card info is transmitted to each player here, first card of dealer is hidden at this point. Each player makes their decisions and calls hit() or stand() accordingly.
@@ -79,10 +80,18 @@ int main() {
     printf("<server> connected to player\n");
 
     char p_response[256];
-    write(socket_client, "hello", 4);
+    write(socket_client, "hello", 5);
     while (read(socket_client, p_response, 255)) {
       printf("Received [%s] from client\n", p_response);
     }
+
+    if( strcmp( p_response, 0 ) == 1 ) { //if hit
+      hit( players, number_of_cards, deck, player_index );
+      
+    }
+    else
+      player_index = stand( number_of_players, player_index );
+           
     
     //if(!strcmp(p_response, "0")) { //1 is hit code
     //current_card = hit( players, number_of_cards, deck, player_index );
