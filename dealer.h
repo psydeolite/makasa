@@ -74,7 +74,7 @@ Hits the player at player_index (0 == dealer) with a card
 Input: players array, number of cards, the deck linkedlist, player_index (player #1, #2, etc.)
 Output: card given
 */
-card* hit( card* players, int number_of_cards, card* deck, int player_index );
+card* hit( card* players, int number_of_cards, card* deck, int player_index, card* last_card );
 
 
 /* ---------------------------------------

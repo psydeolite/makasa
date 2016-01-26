@@ -164,9 +164,9 @@ card* random_card( card* deck, int number_of_cards ) {
   return ret;
 }
 
-card* hit( card* players, int number_of_cards, card* deck, int player_index) {
+card* hit( card* players, int number_of_cards, card* deck, int player_index, card* last_card) {
   card* current_card = random_card( deck, number_of_cards );
-  players[ player_index ] = *current_card;
+  last_card->next_card = current_card;
   number_of_cards--;
 
   return current_card;
@@ -192,18 +192,8 @@ int dealer_score( card* players ) {
   
   current_card = &players[0];
   while( current_card != NULL ) {
-    if( current_card -> is_ace == 0) //not ace
-      score += current_card -> value;	
-    else //ace
-      ace_counter++;
+    score += current_card -> value;	
     current_card = current_card -> next_card;
-  }
-  while( ace_counter > 0 ) {
-    if( score < 11 )
-      score += 11;
-    else
-      score++;
-    ace_counter--;
   }
 
   return score;
