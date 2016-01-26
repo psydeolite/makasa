@@ -11,6 +11,4 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#include "player.h"
-
 #endif
