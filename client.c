@@ -26,7 +26,8 @@ void play(the_sock) {
     printf("<client> just chose %s\n", user_in);
 
     write(the_sock, user_in, sizeof(user_in));
-
+    printf("sent first choice to server!\n");
+    
     deal[0]='\0';
     
     //dealer sends some shit back; if player hit, sends another card

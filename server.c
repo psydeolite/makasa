@@ -61,6 +61,7 @@ int main() {
     
     printf("\n------- The game has begun. The dealer will now deal. ---------\n");
     deal( players, number_of_cards, deck, number_of_players );
+    printf("dealt it\n");
     card* player_last = players[1].next_card;
     card* dealer_last = players[1].next_card;
  
@@ -71,10 +72,15 @@ int main() {
       //continue game
       
       write(socket_client, players, sizeof(players));
-      
+      printf("sent players: %s\n", players);
       read(socket_client, p_response, 255);
+      //char p_resp[256];
+      //sprintf(p_resp,"%d", p_response);
+      strtok(p_response, "\n");
+      printf("read %s from client\n", p_response);
       
       if(!strcmp(p_response, "0")) {
+	printf("entered if\n");
 	current_card = hit( players, number_of_cards, deck, player_index, player_last );
 	player_last = player_last -> next_card;
       } else {
