@@ -2,7 +2,7 @@
 
 void play(the_sock) {
   char user_in[256];
-  char* deal;
+  char deal[256];
   int hand_val;
   int i;
   //char c[256];
@@ -12,8 +12,11 @@ void play(the_sock) {
   while (1==1) {
     printf("inside play loop\n");
     //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
-    i=read(the_sock, user_in, sizeof(user_in));
+    i=read(the_sock, deal, sizeof(deal));
     printf("read result: %d\n",i);
+    if (i<0) {
+      printf("error: %s\n", strerror(errno));
+    }
     printf("<client> received [%s] from server\n", deal);
     printf("Choose one:\n");
     printf("0: Hit\n1:Stand\n");

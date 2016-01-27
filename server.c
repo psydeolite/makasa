@@ -46,8 +46,10 @@ int main() {
       number_of_players = atoi( user_input ); //convert to int */
     
     number_of_players = 1;
-  
+
+    printf("pre-makedeck\n");
     deck = make_deck( deck );
+    printf("post-makedeck\n");
     number_of_cards = 52; //NUMBER OF CARDS AT THE START
 
     //Player/Dealer arrays
