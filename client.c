@@ -2,7 +2,7 @@
 
 void play(the_sock) {
   char user_in[256];
-  char deal[256];
+  card* deal = (card *)malloc(sizeof(card));
   int hand_val;
   int i;
   //char c[256];
@@ -16,8 +16,9 @@ void play(the_sock) {
     printf("read result: %d\n",i);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
+      exit(1);
     }
-    printf("<client> received [%s] from server\n", deal);
+    printf("<client> received [%s] from server\n", deal[0].name);
     printf("Choose one:\n");
     printf("0: Hit\n1:Stand\n");
     //user_in[0]='\0';
@@ -28,13 +29,13 @@ void play(the_sock) {
     write(the_sock, user_in, sizeof(user_in));
     printf("sent first choice to server!\n");
     
-    deal[0]='\0';
+    //&deal[0]=NULL;
     
     //dealer sends some shit back; if player hit, sends another card
     //if player stand sends back winner?
     if (!strcmp(user_in, "0")) { //hit
       read(the_sock, deal, sizeof(deal));
-      printf("<client> received [%s] from server\n", deal);
+      printf("<client> received [%s] from server\n", deal[0].name);
       printf("Choose one:\n");
       printf("0: Hit\n1:Stand\n");
       
@@ -45,7 +46,7 @@ void play(the_sock) {
       //deal[0]='\0';
       printf("Game over! Here's the score:\n");
       read(the_sock, deal, sizeof(deal));
-      printf("%s\n", deal);
+      printf("%s\n", deal[0].name);
     }
   }
 }

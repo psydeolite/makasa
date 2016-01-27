@@ -24,16 +24,22 @@ int main() {
   listener.sin_family = AF_INET;
   listener.sin_port=htons(24601);
   listener.sin_addr.s_addr=INADDR_ANY;
-  bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
+  int binder = bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
+  if (binder < 0) {
+      printf("%s\n", strerror(errno));
+      exit(1);
+  }
   listen(socket_id, 1);
-  
   
   while (1) {
     struct sockaddr_in clientAddress;
     printf("<server> listening for player connection\n");
     printf("SOCKEY ID: %i\n", socket_id);
     socket_client=accept(socket_id, NULL, NULL);
-    printf("socketid: %d\n", socket_client);
+    if (socket_client < 0) {
+      printf("%s\n", strerror(errno));
+      exit(1);
+    }
     printf("<server> connected to player\n");
 
     //Number of players ( <= 4 )
@@ -56,6 +62,7 @@ int main() {
     number_of_players++; //for dealer
     card players[2];
     write( socket_client, "hello", 10 );
+    
     //start game
     printf("\n------------ Let's start the game! -----------\n");
     
@@ -71,8 +78,8 @@ int main() {
       char p_response[256]; 
       //continue game
       
-      write(socket_client, players, sizeof(players));
-      printf("sent players: %s\n", players);
+      write(socket_client, & players[0], sizeof(card *));
+      printf("sent players: %s\n", players[0].name);
       read(socket_client, p_response, 255);
       //char p_resp[256];
       //sprintf(p_resp,"%d", p_response);
