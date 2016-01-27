@@ -14,7 +14,8 @@ void play(the_sock) {
   
   
   while (1==1) {
-    printf("inside play loop\n");
+    printf("\n-------------- Welcome to Blackjack! ----------------\n");
+    //printf("inside play loop\n");
     //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
     //i=read(the_sock, d_hand, sizeof(d_hand));
     //printf("read d_result:_%s_\n",d_hand);
@@ -23,25 +24,32 @@ void play(the_sock) {
     //printf("size of phand: %d\n", sizeof(p_hand));
     //read(the_sock, p_hand, strlen(p_hand)+1);
     //printf("read p_result:_%s_\n",p_hand);
-    i=read(the_sock, hands, 12);
-    printf("read result: %s\n", hands);
+
+    printf("\n-------------- Let's start the game! --------------\n");
+    //sleep(50);
+    printf("\n-------------- The game has begun. The dealer will now deal. --------------\n");
+    i=read(the_sock, hands, 14);
+    //printf("read result: %s\n", hands);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
       exit(1);
     }
+    sleep(5);
+    printf("\n-------------- The dealer has dealt.--------------\n");
     printf("Dealer Hand:%s\n", strsep(&hands,","));
-    printf("Your Hand:%s\n", hands);
-    
+    printf("Your Hand:%s\n\n", hands);
+    printf("\n-------------- What'll it be then, eh? --------------\n");
     printf("Choose one:\n");
     printf("0: Hit\n1: Stand\n");
     //user_in[0]='\0';
     
     fgets(user_in, sizeof(user_in), stdin);
-    printf("<client> just chose %s\n", user_in);
+    //printf("<client> just chose %s\n", user_in);
 
     write(the_sock, user_in, sizeof(user_in));
     printf("sent first choice to server!\n");
-    
+
+    sleep(100);
     //&deal[0]=NULL;
     char res[256];
     //dealer sends some shit back; if player hit, sends another card
@@ -49,6 +57,7 @@ void play(the_sock) {
     if (!strcmp(user_in, "0")) { //hit
       //read(the_sock, dealer, sizeof(dealer));
       //read(the_sock, player, sizeof(player));
+      printf("-------------- You will be hit. --------------\n");
       read(the_sock, res, sizeof(res));
       printf("res: %s\n", res);
       printf("Dealer Hand:%s\n", dealer);

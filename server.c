@@ -85,12 +85,12 @@ int main() {
       hands = print_hand(&players[0], &players[1]);
       //printf("d_hand:__%s__\n", d_hand);
       //printf("p_hand:__%s__\n", p_hand);
-      printf("size of hands: %lu\n", sizeof(hands));
-      printf("hands: %s\n", hands);
+      //printf("size of hands: %lu\n", sizeof(hands));
+      //printf("hands: %s\n", hands);
       write(socket_client, hands, strlen(hands)+1);
       //printf("player: %s\n", p_hand);
       //write(socket_client, d_hand, sizeof(d_hand));
-      //int r=read(socket_client, p_response, sizeof(p_response));
+      int r=read(socket_client, p_response, sizeof(p_response));
       //printf("response %d, is [%s]\n", r, p_response);
       //if (r>=0) {
       //	write(socket_client, p_hand, strlen(p_hand)+1);
@@ -98,16 +98,20 @@ int main() {
       //p_response[0]='\0';
       //write(socket_client, p_hand, sizeof(p_hand));
       //printf("sent players: %d, %d\n",w, sizeof(d_hand));
-      read(socket_client, p_response, sizeof(p_response));
+      //read(socket_client, p_response, sizeof(p_response));
       //char p_resp[256];
       //sprintf(p_resp,"%d", p_response);
+      //
+      //printf("read %s from client\n", p_response);
+      //p_response=send_hand(socket_client, &players[0], &players[1]);
+      printf("p_reponse: %s\n", p_response);
       strtok(p_response, "\n");
-      printf("read %s from client\n", p_response);
-      
       if(!strcmp(p_response, "0")) {
 	printf("entered if\n");
 	current_card = hit( players, number_of_cards, deck, player_index, player_last );
+	printf("talk shit get hit\n");
 	player_last = player_last -> next_card;
+	printf("playerlast done\n");
       } else {
 	player_index = 0;
 	break;
@@ -133,7 +137,15 @@ int main() {
   return 0;
 }
 
-
+/*char* send_hand(the_sock) {
+  char *hands;
+  char response[256];
+  hands=print_hand(&players[0], &players[1]);
+  write(the_sock, hands, strlen(hands)+1);
+  read(the_sock, response, sizeof(response));
+  strtok(response, "\n");
+  return response;
+  }*/
 
 
     //1 is hit code
