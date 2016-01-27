@@ -5,6 +5,8 @@ void play(the_sock) {
   char* dealer = (char *)malloc(sizeof(char)*256);
   char* player = (char *)malloc(sizeof(char)*256);
   char* hands = (char *)malloc(sizeof(char)*256);
+  // char* d_hand=(char*)malloc(sizeof(char)*256);
+  //char* p_hand=(char*)malloc(sizeof(char)*256);
   int hand_val;
   int i;
   //char c[256];
@@ -14,8 +16,15 @@ void play(the_sock) {
   while (1==1) {
     printf("inside play loop\n");
     //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
-    i=read(the_sock, hands, sizeof(hands));
-    printf("read result: %s\n",hands);
+    //i=read(the_sock, d_hand, sizeof(d_hand));
+    //printf("read d_result:_%s_\n",d_hand);
+    //char* resp="OK";
+    //write(the_sock, resp, sizeof(resp));
+    //printf("size of phand: %d\n", sizeof(p_hand));
+    //read(the_sock, p_hand, strlen(p_hand)+1);
+    //printf("read p_result:_%s_\n",p_hand);
+    i=read(the_sock, hands, 12);
+    printf("read result: %s\n", hands);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
       exit(1);
@@ -34,12 +43,14 @@ void play(the_sock) {
     printf("sent first choice to server!\n");
     
     //&deal[0]=NULL;
-    
+    char res[256];
     //dealer sends some shit back; if player hit, sends another card
     //if player stand sends back winner?
     if (!strcmp(user_in, "0")) { //hit
-      read(the_sock, dealer, sizeof(dealer));
-      read(the_sock, player, sizeof(player));
+      //read(the_sock, dealer, sizeof(dealer));
+      //read(the_sock, player, sizeof(player));
+      read(the_sock, res, sizeof(res));
+      printf("res: %s\n", res);
       printf("Dealer Hand:%s\n", dealer);
       printf("Your Hand:%s\n", player);
       printf("Choose one:\n");

@@ -80,15 +80,25 @@ int main() {
     while (1) {
       char p_response[256]; 
       //continue game
-      //d_hand = print_hand(&players[0]);
-      //p_hand = print_hand(&players[1]);
+      //d_hand = print_one_hand(&players[0]);
+      //p_hand = print_one_hand(&players[1]);
       hands = print_hand(&players[0], &players[1]);
+      //printf("d_hand:__%s__\n", d_hand);
+      //printf("p_hand:__%s__\n", p_hand);
+      printf("size of hands: %lu\n", sizeof(hands));
       printf("hands: %s\n", hands);
+      write(socket_client, hands, strlen(hands)+1);
       //printf("player: %s\n", p_hand);
-      write(socket_client, hands, sizeof(hands));
+      //write(socket_client, d_hand, sizeof(d_hand));
+      //int r=read(socket_client, p_response, sizeof(p_response));
+      //printf("response %d, is [%s]\n", r, p_response);
+      //if (r>=0) {
+      //	write(socket_client, p_hand, strlen(p_hand)+1);
+      //}
+      //p_response[0]='\0';
       //write(socket_client, p_hand, sizeof(p_hand));
       //printf("sent players: %d, %d\n",w, sizeof(d_hand));
-      read(socket_client, p_response, 255);
+      read(socket_client, p_response, sizeof(p_response));
       //char p_resp[256];
       //sprintf(p_resp,"%d", p_response);
       strtok(p_response, "\n");
