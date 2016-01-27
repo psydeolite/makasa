@@ -2,7 +2,8 @@
 
 void play(the_sock) {
   char user_in[256];
-  card* deal = (card *)malloc(sizeof(card));
+  char* dealer = (char *)malloc(sizeof(char)*256);
+  char* player = (char *)malloc(sizeof(char)*256);
   int hand_val;
   int i;
   //char c[256];
@@ -12,15 +13,17 @@ void play(the_sock) {
   while (1==1) {
     printf("inside play loop\n");
     //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
-    i=read(the_sock, deal, sizeof(deal));
+    i=read(the_sock, dealer, sizeof(dealer));
     printf("read result: %d\n",i);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
       exit(1);
     }
-    printf("<client> received [%s] from server\n", deal[0].name);
+    printf("Dealer Hand:%s\n", dealer);
+    printf("Your Hand:%s\n", player);
+    
     printf("Choose one:\n");
-    printf("0: Hit\n1:Stand\n");
+    printf("0: Hit\n1: Stand\n");
     //user_in[0]='\0';
     
     fgets(user_in, sizeof(user_in), stdin);
@@ -34,8 +37,10 @@ void play(the_sock) {
     //dealer sends some shit back; if player hit, sends another card
     //if player stand sends back winner?
     if (!strcmp(user_in, "0")) { //hit
-      read(the_sock, deal, sizeof(deal));
-      printf("<client> received [%s] from server\n", deal[0].name);
+      read(the_sock, dealer, sizeof(dealer));
+      read(the_sock, player, sizeof(player));
+      printf("Dealer Hand:%s\n", dealer);
+      printf("Your Hand:%s\n", player);
       printf("Choose one:\n");
       printf("0: Hit\n1:Stand\n");
       
@@ -45,8 +50,8 @@ void play(the_sock) {
     } else {
       //deal[0]='\0';
       printf("Game over! Here's the score:\n");
-      read(the_sock, deal, sizeof(deal));
-      printf("%s\n", deal[0].name);
+      read(the_sock, dealer, sizeof(dealer));
+      printf("%s\n", dealer);
     }
   }
 }

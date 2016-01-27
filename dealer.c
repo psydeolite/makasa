@@ -127,13 +127,13 @@ card* make_deck( card* current_card ) {
   return deck;
 }
 
-int deal( card* players, int number_of_cards, card* deck, int number_of_players ) {
+int deal( card* players, int number_of_cards, card* deck ) {
     int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
-  while( i < number_of_players ) {
+  while( i < 2 ) {
     players[i] = *random_card( deck, number_of_cards );
     number_of_cards--;
-    //printf("%s\n",players[i].name);
+    printf("%s\n",print_hand(&players[i]));
     players[i].next_card = random_card( deck, number_of_cards );
     number_of_cards--;
     //printf("%s\n",players[i].next_card->name);
@@ -160,11 +160,21 @@ card* random_card( card* deck, int number_of_cards ) {
   //re-links and returns the card
   current_card -> next_card = current_card -> next_card -> next_card;
   //number_of_cards--;
-  
+  ret->next_card = NULL;
   return ret;
 }
 
 //char* hit( card* players, int number_of_cards, card* deck, int player_index) {
+
+char* print_hand( card* hand ) {
+  char* result = (char *)malloc(256*sizeof(char));
+  while (hand) {
+    strcat(result,hand->name);
+    strcat(result," ");
+    hand = hand -> next_card;
+  }
+  return result;
+}
 
 card* hit( card* players, int number_of_cards, card* deck, int player_index, card* last_card) {
   card* current_card = random_card( deck, number_of_cards );

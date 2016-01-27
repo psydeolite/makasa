@@ -55,7 +55,7 @@ Initates game and gives player and dealer cards
 Input: players array, dealer being at index 0, deck, and number of players
 Returns: Number of cards
 */
-int deal( card* players, int number_of_cards, card* deck, int number_of_players ); 
+int deal( card* players, int number_of_cards, card* deck ); 
 
 
 
@@ -110,3 +110,6 @@ Input: The highest score from among the players
 Output: Game over status and result, as dealer is last to play
 */
 void end_game( int highest_player_score, int dealer_score );
+
+
+char* print_hand( card* hand );
