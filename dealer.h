@@ -112,4 +112,4 @@ Output: Game over status and result, as dealer is last to play
 void end_game( int highest_player_score, int dealer_score );
 
 
-char* print_hand( card* hand );
+char* print_hand( card* hand1, card* hand2 );

@@ -4,6 +4,7 @@ void play(the_sock) {
   char user_in[256];
   char* dealer = (char *)malloc(sizeof(char)*256);
   char* player = (char *)malloc(sizeof(char)*256);
+  char* hands = (char *)malloc(sizeof(char)*256);
   int hand_val;
   int i;
   //char c[256];
@@ -13,14 +14,14 @@ void play(the_sock) {
   while (1==1) {
     printf("inside play loop\n");
     //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
-    i=read(the_sock, dealer, sizeof(dealer));
-    printf("read result: %d\n",i);
+    i=read(the_sock, hands, sizeof(hands));
+    printf("read result: %s\n",hands);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
       exit(1);
     }
-    printf("Dealer Hand:%s\n", dealer);
-    printf("Your Hand:%s\n", player);
+    printf("Dealer Hand:%s\n", strsep(&hands,","));
+    printf("Your Hand:%s\n", hands);
     
     printf("Choose one:\n");
     printf("0: Hit\n1: Stand\n");

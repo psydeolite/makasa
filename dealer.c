@@ -128,12 +128,11 @@ card* make_deck( card* current_card ) {
 }
 
 int deal( card* players, int number_of_cards, card* deck ) {
-    int i = 0;
+  int i = 0;
   //Dealer + Players (hide second card in graphics only for dealer)
   while( i < 2 ) {
     players[i] = *random_card( deck, number_of_cards );
     number_of_cards--;
-    printf("%s\n",print_hand(&players[i]));
     players[i].next_card = random_card( deck, number_of_cards );
     number_of_cards--;
     //printf("%s\n",players[i].next_card->name);
@@ -166,12 +165,18 @@ card* random_card( card* deck, int number_of_cards ) {
 
 //char* hit( card* players, int number_of_cards, card* deck, int player_index) {
 
-char* print_hand( card* hand ) {
+char* print_hand( card* hand1, card* hand2 ) {
   char* result = (char *)malloc(256*sizeof(char));
-  while (hand) {
-    strcat(result,hand->name);
+  while (hand1) {
+    strcat(result,hand1->name);
     strcat(result," ");
-    hand = hand -> next_card;
+    hand1 = hand1 -> next_card;
+  }
+  strcat(result,",");
+  while (hand2) {
+    strcat(result,hand2->name);
+    strcat(result," ");
+    hand2 = hand2 -> next_card;
   }
   return result;
 }

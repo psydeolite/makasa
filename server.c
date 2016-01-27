@@ -66,26 +66,27 @@ int main() {
     //start game
     printf("\n------------ Let's start the game! -----------\n");
     
-    printf("\n------- The game has begun. The dealer will now deal. ---------\n");
+    printf("\n------ The game has begun. The dealer will now deal. --------\n");
     deal( players, number_of_cards, deck );
     printf("dealt it\n");
     card* player_last = players[1].next_card;
     card* dealer_last = players[1].next_card;
     
     char* d_hand;
-    char *p_hand;
+    char* p_hand;
+    char* hands;
     player_index = 1; //starting from first player
 
     while (1) {
       char p_response[256]; 
       //continue game
-      d_hand = print_hand(&players[0]);
-      p_hand = print_hand(&players[1]);
-      
-      printf("dealer: %s\n", d_hand);
-      printf("player: %s\n", p_hand);
-      write(socket_client, d_hand, sizeof(d_hand));
-      write(socket_client, p_hand, sizeof(p_hand));
+      //d_hand = print_hand(&players[0]);
+      //p_hand = print_hand(&players[1]);
+      hands = print_hand(&players[0], &players[1]);
+      printf("hands: %s\n", hands);
+      //printf("player: %s\n", p_hand);
+      write(socket_client, hands, sizeof(hands));
+      //write(socket_client, p_hand, sizeof(p_hand));
       //printf("sent players: %d, %d\n",w, sizeof(d_hand));
       read(socket_client, p_response, 255);
       //char p_resp[256];
