@@ -1,7 +1,4 @@
-all: 
-	dealer
-	server
-	client
+all: dealer client server
 
 client: client.c client.h 
 	gcc client.c -o client

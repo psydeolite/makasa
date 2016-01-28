@@ -105,3 +105,5 @@ int winner( int highest_player_score, int dealer_score );
 
 
 char* print_hand( card* hand1, card* hand2 );
+
+card* free_deck(card* deck);

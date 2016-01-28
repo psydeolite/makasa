@@ -7,7 +7,7 @@ Members:
 	Period 8
 
 Description: 
-Single-player Blackjack in the terminal. As in any other blackjack game, there is a dealer (artificial intelligence) and at least one player. This blackjack game will play by standard blackjack rules. 
+Single-player Blackjack in the terminal. As in any other blackjack game, there is a dealer (artificial intelligence) and at least one player. This blackjack game will play by standard blackjack rules. Dealer stands on 17.
 
 User Experience: 
 make, ./server and ./client to play
@@ -19,6 +19,7 @@ Technical Design:
 		Structs/Nodes+Linked Lists
 		Memory Allocation
 		User input
+		Signals
 	Breakdown (what it was supposed to be):
 		M: 
 			User input for blackjack
@@ -34,11 +35,11 @@ Technical Design:
 		M: 
 			Server/client
 		K: 
-			Fixing everyone's numerous seg faults
-			Server side of network
+			Fixing S's numerous seg faults
+			Server/client
 		S: 
-			Game mechanics but with a lot of seg faults
-			Bit of both server and client
+			Game mechanics but with a lot of seg faults and problems
+			Abandoning ship (;-;)
 	Data Structures:
 		Card struct will store the number/suit as a string and the value as an int, and a reference to the next card in the hand
      	       	Linked list to hold cards

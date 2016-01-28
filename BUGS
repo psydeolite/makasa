@@ -1,0 +1,12 @@
+seg fault in make_deck 01-20-2016
+more seg faults in make_deck 01-21-2016
+even more seg faults in make_deck, seg faults in deal 01-24-2016
+seg faults in random card 01-24-2016
+server doesnt connect to client 01-25-2016
+server and client cant read/write structs, decided to send strings 01-25-2016
+general read/write issues 01-25-2016, 01-26-2016
+faulty gameplay flow 01-27-2016,01-28-2016
+
+seg fault if another client tries to connect 
+occasional seg fault in hit/deal (something wrong with random card)
+not enough testing of different hand cases, probably

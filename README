@@ -11,8 +11,23 @@ to run server:
 to run client:
 ./client
 
-server c and h
+to use:
+follow the prompts in client, by entering the correct character for hit/stand
+hit is take 1 more card, stand means you are done taking cards
+blackjack rules:
+	  dealer deals cards to itself and player
+	  player can choose whether it wants to take more cards
+	  goal is to be as close as possible to 21 points as possible
+	  but not go over 21
+	  points for regular cards like 7 of hearts is the same as the number
+	  points for J, Q, K are all 10 points
+	  aces (in our version) are all 1 point
 
-client c and h
-
-dealer c and h
+files:
+dealer.c
+dealer.h
+client.c
+client.h
+server.c
+server.h
+makefile

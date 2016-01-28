@@ -16,3 +16,5 @@
 #include "dealer.h"
 
 #endif
+
+void play(int socket_client, card* deck);
