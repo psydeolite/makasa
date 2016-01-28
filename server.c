@@ -84,34 +84,43 @@ void play (int socket_client, card* deck) {
     bzero(p_response,256);
     hands = print_hand(&players[0], &players[1]);
     printf("hands: %s\n", hands);
+    //write the first round of hands
     write(socket_client, hands, strlen(hands)+1);
-    sleep(2);
+    sleep(3);
+
+    //first choice of hit or stand
     read(socket_client, p_response, 255);
     strtok(p_response, "\n");
     printf("Read %s from client\n", p_response);
     p_score = sum(&players[1]);
     while (strcmp(p_response, "1") && !strcmp(p_response, "0") && 
 	   p_score<21) {
+      printf("presponse is [%s]\n", p_response);
       bzero(p_response,256);
       printf("entered if\n");
       player_last->next_card = hit( players, number_of_cards, 
 				    deck, player_index, player_last );
-      printf("updated hands with hit\n");
+      printf("updated hands with hit after player chose\n");
       player_last = player_last -> next_card;
       hands = print_hand(&players[0], &players[1]);
       printf("new hands: %s\n", hands);
 	
       write(socket_client, hands, strlen(hands)+1);
-      sleep(10);
+      sleep(5);
       read(socket_client, p_response, 255);
       strtok(p_response, "\n");
       printf("Read %s from client\n", p_response);
       p_score = sum(&players[1]);
+      /*while (!p_response) {
+	sleep(2);
+	read(socket_client, p_response, 255);
+	strtok(p_response, "\n");
+	}*/
     } 
-    if (strcmp(p_response, "1")) {
+    /*if (strcmp(p_response, "1")) {
       printf("client took too long....\n");
       break;
-    }
+      }*/
     if (p_score>21) {
       printf("p_score>21\n");
       break;
@@ -125,6 +134,7 @@ void play (int socket_client, card* deck) {
 	printf("%s\n", print_hand(&players[0],&players[1]));
 	dealer_last->next_card = hit( players, number_of_cards, 
 				      deck, player_index, dealer_last );
+	printf("dealer hit\n");
 	dealer_last = dealer_last->next_card;
 	d_score = sum(&players[0]);
 	}

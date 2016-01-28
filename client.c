@@ -12,73 +12,88 @@ void play(the_sock) {
   printf("\n------ The game has begun. The dealer will now deal. --------\n");
   sleep(3);
   printf("\n------------ The dealer had dealt. -----------\n");
-  read(the_sock, hands, 30);
-  printf("read result: %s\n",hands);
+  i=read(the_sock, hands, 30);
+  //printf("read result: %s\n",hands);
   if (i<0) {
     printf("error: %s\n", strerror(errno));
-    free(score);
-    free(hands);
+    //free(score);
+    //free(hands);
     return;
   }
-  printf("Dealer Hand: %s\n", strsep(&hands,","));
-  printf("Your Hand: %s\n", hands);
-  printf("\n---------- What'll it be then, eh? ---------\n");
-  printf("Choose one:\n");
-  printf("0: Hit\n1: Stand\n");
-  fgets(user_in, sizeof(user_in), stdin);
-  printf("<client> just chose %s\n", user_in);
-  //strsep(&hands,":");
-  
-  //write initial hit/stand to server
-  write(the_sock, user_in, sizeof(user_in));
-  strtok(user_in, "\n");
-  while (strcmp(user_in, "1")) { //hit
-    user_in[0]='\n';
-    hands[0]='\n';
-    sleep(1);
-    printf("\n------------ You have been hit! -----------\n");
-    read(the_sock, hands, 30);
-    printf("Dealer Hand:%s\n", strsep(&hands, ","));
-    printf("Your Hand:%s\n", hands);
-    strsep(&hands,":");
-    printf("~~%d~~\n",atoi(hands));
-    if (hands && atoi(hands)==21) {
-      //printf("won");
-      printf("You win :)))))))\n");
-      free(score);
-      free(hands);
-      return;
-    } else if (hands && atoi(hands)>21) {
-      printf("Dealer wins ;-;\n");
-      free(score);
-      free(hands);
-      return;
-    }
+  if (hands) {
+    printf("Dealer Hand: %s\n", strsep(&hands,","));
+    printf("Your Hand: %s\n", hands);
+    printf("\n---------- What'll it be then, eh? ---------\n");
     printf("Choose one:\n");
     printf("0: Hit\n1: Stand\n");
     fgets(user_in, sizeof(user_in), stdin);
-    printf("<client> just chose %s\n", user_in);
+    //printf("<client> just chose %s\n", user_in);
+    //strsep(&hands,":");
+    strtok(user_in, "\n");
+    /*while (strcmp(user_in, "1") || strcmp(user_in, "0")) {
+      printf("Invalid choice %s, try again.\n", user_in);
+      printf("Choose one:\n");
+      printf("0: Hit\n1: Stand\n");
+      fgets(user_in, sizeof(user_in), stdin);
+      strtok(user_in, "\n");
+      }*/
+    //write initial hit/stand to server
     write(the_sock, user_in, sizeof(user_in));
+    strtok(user_in, "\n");
+    while (!strcmp(user_in, "0")) { //hit
+      
+      //printf("userin: %s_\n", user_in);
+      user_in[0]='\n';
+      hands[0]='\n';
+      //sleep(1);
+      printf("\n------------ You have been hit! -----------\n");
+      read(the_sock, hands, 30);
+      if (hands) {
+	printf("Dealer Hand:%s\n", strsep(&hands, ","));
+	printf("Your Hand:%s\n", hands);
+	strsep(&hands,":");
+	printf("~~%d~~\n",atoi(hands));
+	if (hands && atoi(hands)==21) {
+	  //printf("won");
+	  printf("You win :)))))))\n");
+	  //free(score);
+	  //free(hands);
+	  return;
+	} else if (hands && atoi(hands)>21) {
+	  printf("Dealer wins ;-;\n");
+	  //free(score);
+	  //free(hands);
+	  return;
+	}
+	printf("Choose one:\n");
+	printf("0: Hit\n1: Stand\n");
+	fgets(user_in, sizeof(user_in), stdin);
+	strtok(user_in, "\n");
+	//printf("<client> just chose %s\n", user_in);
+	write(the_sock, user_in, sizeof(user_in));
+      }
+    }
+    if (!strcmp(user_in, "1")) { //stand
+      printf("\n------- You chose to stand. Dealer deals to itself. -------\n");
+      sleep(2);
+      printf("\n--------- Game over! Here's the score: --------\n");
+      read(the_sock, score, 80);
+      printf("%s\n", score);
+      char* resp="OK";
+      write(the_sock, resp, sizeof(resp));
+      char* win = (char *)malloc(sizeof(char)*256);
+      read(the_sock, win, 10);
+      //printf("win: %s\n", win);
+      if (!strcmp("0",win)) {
+	printf("Dealer wins ;-;\n");
+      } else if (!strcmp("1",win)) {
+	printf("You win :)))))))\n");
+      }
+      //free(win);
+    //free(score);
+    //free(hands);
+    }
   }
-
-  printf("\n------- You chose to stand. Dealer deals to itself. -------\n");
-  sleep(2);
-  printf("\n--------- Game over! Here's the score: --------\n");
-  read(the_sock, score, 80);
-  printf("%s\n", score);
-  char* resp="OK";
-  write(the_sock, resp, sizeof(resp));
-  char* win = (char *)malloc(sizeof(char)*256);
-  read(the_sock, win, 10);
-  printf("win: %s\n", win);
-  if (!strcmp("0",win)) {
-    printf("Dealer wins ;-;\n");
-  } else if (!strcmp("1",win)) {
-    printf("You win :)))))))\n");
-  }
-  //free(win);
-  free(score);
-  free(hands);
 }
 
 int main() {
