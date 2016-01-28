@@ -86,21 +86,13 @@ Output: Player number (0 == dealer)
 */
 int stand( int number_of_players, int player_index );
 
-/* ---------------------------------------
-Calculates and returns dealer's score
-
-Input: players linked list
-Output: The Score (total value of cards)
- */
-int dealer_score( card* players );
-
 /* ------------------------------
 Calculates and returns player's score
 
 Input: player and player_index
 Output: that player's score
 */
-int player_score( card* players, int player_index );
+int sum( card* hand );
 
 
 /* --------------------------------------
@@ -109,7 +101,7 @@ Dealer stops and finishes game.
 Input: The highest score from among the players
 Output: Game over status and result, as dealer is last to play
 */
-void end_game( int highest_player_score, int dealer_score );
+int winner( int highest_player_score, int dealer_score );
 
 
 char* print_hand( card* hand1, card* hand2 );

@@ -167,25 +167,33 @@ card* random_card( card* deck, int number_of_cards ) {
 
 char* print_hand( card* hand1, card* hand2 ) {
   char* result = (char *)malloc(256*sizeof(char));
+  char* ds = (char *)malloc(3*sizeof(char));
+  char* ps = (char *)malloc(3*sizeof(char));
+  sprintf(ds, "%d", sum(hand1));
+  sprintf(ps, "%d", sum(hand2));
   while (hand1) {
     strcat(result,hand1->name);
     strcat(result," ");
     hand1 = hand1 -> next_card;
   }
-  strcat(result,",");
+  strcat(result, ":");
+  strcat(result, ds);
+  strcat(result, ",");
   while (hand2) {
     strcat(result,hand2->name);
     strcat(result," ");
     hand2 = hand2 -> next_card;
   }
+  strcat(result, ":");
+  strcat(result, ps);
   return result;
 }
 
 card* hit( card* players, int number_of_cards, card* deck, int player_index, card* last_card) {
   card* current_card = random_card( deck, number_of_cards );
-  last_card->next_card = current_card;
+  //last_card->next_card = current_card;
   number_of_cards--;
-
+  printf("%s\n",current_card->name);
   //return current_card;
   return current_card;
 }
@@ -203,42 +211,34 @@ int stand( int number_of_players, int player_index ) {
     return player_index;
 }
 
-int dealer_score( card* players ) {
-  int score;
-  int ace_counter;
-  card* current_card;
-  
-  current_card = &players[0];
-  while( current_card != NULL ) {
-    score += current_card -> value;	
-    current_card = current_card -> next_card;
-  }
+int sum( card* hand ) {
+  int score = 0;
 
-  return score;
-}
-
-
-int player_score( card* players, int player_index ) {
-
-  int score;
-  card* current_card;
-  
-  current_card = &players[0];
-  while( current_card != NULL ) {
-    score += current_card -> value; //add to score
+  while( hand != NULL ) {
+    //printf("%d ", hand->value);
+    //printf("%d\n", score);
+    score += hand -> value; //add to score
     
-    current_card = current_card -> next_card; //next card
+    hand = hand -> next_card; //next card
   }
 
   return score;
 }
 
-void end_game( int highest_player_score, int dealer_score ) {
-  if( highest_player_score > dealer_score )
-    printf("The player has won!");
-  else if( dealer_score > highest_player_score)
-    printf("The dealer has won!");
-  else
-    printf("It is a tie.");
+int winner( int player_score, int dealer_score ) {
+  if ( dealer_score > 21 ) {
+    printf("The player has won!\n");
+    return 1;
+  } else if (player_score > 21 ) {
+    printf("The dealer has won!\n");
+    return 0;
+  } else if ( player_score > dealer_score ) {
+    printf("The player has won!\n");
+    return 1;
+  } else {
+    printf("The dealer has won!\n");
+    return 0;
+  }
 }
+
 

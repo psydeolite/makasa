@@ -2,27 +2,29 @@
 
 void play(the_sock) {
   char user_in[256];
-  char* dealer = (char *)malloc(sizeof(char)*256);
-  char* player = (char *)malloc(sizeof(char)*256);
+  char* score = (char *)malloc(sizeof(char)*256);
+  //char* player = (char *)malloc(sizeof(char)*256);
   char* hands = (char *)malloc(sizeof(char)*256);
   int hand_val;
   int i;
   //char c[256];
   //char char2[256];
   
-  
-  while (1==1) {
-    printf("inside play loop\n");
-    //printf("%d\n", read(the_sock, user_in, sizeof(user_in)));
-    i=read(the_sock, hands, sizeof(hands));
+  while (1) {
+    printf("\n------------ Welcome to Blackjack! ---------------\n");
+    printf("\n------------ Let's start the game! -----------\n");
+    printf("\n------ The game has begun. The dealer will now deal. --------\n");
+    sleep(5);
+    printf("\n------------ The dealer had dealt. -----------\n");
+    read(the_sock, hands, 20);
     printf("read result: %s\n",hands);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
       exit(1);
     }
-    printf("Dealer Hand:%s\n", strsep(&hands,","));
-    printf("Your Hand:%s\n", hands);
-    
+    printf("Dealer Hand: %s\n", strsep(&hands,","));
+    printf("Your Hand: %s\n", hands);
+    printf("\n---------- What'll it be then, eh? ---------\n");
     printf("Choose one:\n");
     printf("0: Hit\n1: Stand\n");
     //user_in[0]='\0';
@@ -34,26 +36,26 @@ void play(the_sock) {
     printf("sent first choice to server!\n");
     
     //&deal[0]=NULL;
-    
     //dealer sends some shit back; if player hit, sends another card
     //if player stand sends back winner?
-    if (!strcmp(user_in, "0")) { //hit
-      read(the_sock, dealer, sizeof(dealer));
-      read(the_sock, player, sizeof(player));
-      printf("Dealer Hand:%s\n", dealer);
-      printf("Your Hand:%s\n", player);
+    while (!strcmp(user_in, "0")) { //hit
+      sleep(10);
+      printf("\n------------ You have been hit! -----------\n");
+      read(the_sock, hands, 20);
+      printf("Dealer Hand:%s\n", strsep(&hands, ","));
+      printf("Your Hand:%s\n", hands);
       printf("Choose one:\n");
       printf("0: Hit\n1:Stand\n");
       
       fgets(user_in, sizeof(user_in), stdin);
-
       write(the_sock, user_in, sizeof(user_in));
-    } else {
-      //deal[0]='\0';
-      printf("Game over! Here's the score:\n");
-      read(the_sock, dealer, sizeof(dealer));
-      printf("%s\n", dealer);
     }
+    //deal[0]='\0';
+    sleep(2);
+    printf("Game over! Here's the score:\n");
+    read(the_sock, score, sizeof(score));
+    printf("%s\n", score);
+    break;
   }
 }
     
