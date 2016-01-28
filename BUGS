@@ -7,6 +7,9 @@ server and client cant read/write structs, decided to send strings 01-25-2016
 general read/write issues 01-25-2016, 01-26-2016
 faulty gameplay flow 01-27-2016,01-28-2016
 
-seg fault if another client tries to connect 
+seg fault if another client tries to connect 01-28-2016
 occasional seg fault in hit/deal (something wrong with random card)
 not enough testing of different hand cases, probably
+gameplay disruption when user chooses to hit a second time
+
+*everything tested on homer

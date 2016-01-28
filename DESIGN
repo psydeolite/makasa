@@ -11,7 +11,7 @@ Single-player Blackjack in the terminal. As in any other blackjack game, there i
 
 User Experience: 
 make, ./server and ./client to play
-ASCII-based cards, user can choose to hit or stand with the (0) or (1) keys. Theserver prompts the client and sends the current player/dealer hands to the client. 	
+Text-based cards in the format [VALUE][SUIT], user can choose to hit or stand with the (0) or (1) keys. Theserver prompts the client and sends the current player/dealer hands to the client. 	
 
 Technical Design:
 	Topics Used:
@@ -34,6 +34,7 @@ Technical Design:
 	Nervous Breakdown (what happened):
 		M: 
 			Server/client
+			Networking
 		K: 
 			Fixing S's numerous seg faults
 			Server/client
