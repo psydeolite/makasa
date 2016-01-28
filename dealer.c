@@ -186,6 +186,17 @@ char* print_hand( card* hand1, card* hand2 ) {
   }
   strcat(result, ":");
   strcat(result, ps);
+  strcat(result,"\n");
+  return result;
+}
+
+char* print_one_hand(card* hand) {
+  char* result=(char *)malloc(256*sizeof(char));
+  while (hand) {
+    strcat(result, hand->name);
+    strcat(result, " ");
+    hand=hand->next_card;
+  }
   return result;
 }
 
