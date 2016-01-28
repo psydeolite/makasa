@@ -201,11 +201,13 @@ char* print_one_hand(card* hand) {
 }
 
 card* hit( card* players, int number_of_cards, card* deck, int player_index, card* last_card) {
+  printf("entered hit\n");
   card* current_card = random_card( deck, number_of_cards );
   //last_card->next_card = current_card;
   number_of_cards--;
   printf("%s\n",current_card->name);
   //return current_card;
+  printf("exited hit\n");
   return current_card;
 }
 

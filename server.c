@@ -14,7 +14,7 @@ int main() {
   card* current_card;
   card* cycle_card;
   
-    int socket_id, socket_client;
+  int socket_id, socket_client;
   
   socket_id=socket(AF_INET, SOCK_STREAM, 0);
   
@@ -24,15 +24,15 @@ int main() {
   listener.sin_addr.s_addr=INADDR_ANY;
   int binder = bind(socket_id, (struct sockaddr *)&listener, sizeof(listener));
   if (binder < 0) {
-      printf("%s\n", strerror(errno));
-      exit(1);
+    printf("%s\n", strerror(errno));
+    exit(1);
   }
   listen(socket_id, 1);
   
   while (1) {
     struct sockaddr_in clientAddress;
     printf("<server> listening for player connection\n");
-    printf("SOCKEY ID: %i\n", socket_id);
+    //printf("SOCKEY ID: %i\n", socket_id);
     socket_client=accept(socket_id, NULL, NULL);
     if (socket_client < 0) {
       printf("%s\n", strerror(errno));
@@ -78,9 +78,11 @@ int main() {
       while (!strcmp(p_response, "0") && p_score<21) {
 	printf("entered if\n");
 	player_last->next_card = hit( players, number_of_cards, deck, player_index, player_last );
+	printf("updated hands with hit\n");
 	player_last = player_last -> next_card;
 	hands = print_hand(&players[0], &players[1]);
-	printf("hands: %s\n", hands);
+	printf("new hands: %s\n", hands);
+	
 	write(socket_client, hands, strlen(hands)+1);
 	read(socket_client, p_response, 255);
 	strtok(p_response, "\n");
@@ -89,9 +91,11 @@ int main() {
       } 
       if (p_score>21) {
 	win = winner( p_score, d_score );
+	printf("p_score>21\n");
 	break;
       } else if (p_score==21) {
 	win = winner( p_score, d_score );
+	printf("p_score==21\n");
 	break;
       } else {
 	player_index = 0;
@@ -104,14 +108,25 @@ int main() {
 	  dealer_last = dealer_last->next_card;
 	  d_score = sum(&players[0]);
 	}
-	write(socket_client, players, sizeof(players));
+      }
+	//write(socket_client, players, sizeof(players));
 	printf("p:%d, d:%d\n",p_score,d_score);
 	win = winner( p_score, d_score );
+	printf("time to send the scores\n");
 	char *buff = (char *)malloc(sizeof(char)*256);
+	sprintf(buff, "Dealer's score: %d\nYour score: %d\n", d_score, p_score);
+	
+	//sprintf(buff,"%d", win);
+	write(socket_client, buff, strlen(buff)+1);
+	printf("sent scores\n");
+	buff[0]='\n';
+	p_response[0]='\n';
+	read(socket_client, p_response, 10);
+	printf("p_response: %s\n", p_response);
 	sprintf(buff,"%d", win);
-	write(socket_client, buff, sizeof(win));
+	write(socket_client, buff, strlen(buff)+1);
+	printf("sent win\n");
 	break;
-      }
     }
   }
   return 0;

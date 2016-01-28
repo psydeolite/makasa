@@ -5,6 +5,7 @@ void play(the_sock) {
   char* score = (char *)malloc(sizeof(char)*256);
   //char* player = (char *)malloc(sizeof(char)*256);
   char* hands = (char *)malloc(sizeof(char)*256);
+  //char hands[256];
   int hand_val;
   int i;
   //char c[256];
@@ -16,7 +17,7 @@ void play(the_sock) {
     printf("\n------ The game has begun. The dealer will now deal. --------\n");
     sleep(5);
     printf("\n------------ The dealer had dealt. -----------\n");
-    read(the_sock, hands, 20);
+    read(the_sock, hands, 30);
     printf("read result: %s\n",hands);
     if (i<0) {
       printf("error: %s\n", strerror(errno));
@@ -30,31 +31,43 @@ void play(the_sock) {
     //user_in[0]='\0';
     
     fgets(user_in, sizeof(user_in), stdin);
-    printf("<client> just chose %s\n", user_in);
+    //printf("<client> just chose %s\n", user_in);
 
+    //write initial hit/stand to server
     write(the_sock, user_in, sizeof(user_in));
-    printf("sent first choice to server!\n");
-    
+    //printf("sent first choice to server!\n");
+    strtok(user_in, "\n");
     //&deal[0]=NULL;
     //dealer sends some shit back; if player hit, sends another card
     //if player stand sends back winner?
     while (!strcmp(user_in, "0")) { //hit
-      sleep(10);
+      user_in[0]='\n';
+      hands[0]='\n';
+      sleep(1);
       printf("\n------------ You have been hit! -----------\n");
-      read(the_sock, hands, 20);
+      read(the_sock, hands, 30);
       printf("Dealer Hand:%s\n", strsep(&hands, ","));
       printf("Your Hand:%s\n", hands);
       printf("Choose one:\n");
       printf("0: Hit\n1:Stand\n");
       
+      //printf("cleared userin\n");
+      //printf("cleared hands\n");
+      //write the second hit
       fgets(user_in, sizeof(user_in), stdin);
       write(the_sock, user_in, sizeof(user_in));
     }
+    printf("You chose to stand!\n");
     //deal[0]='\0';
     sleep(2);
     printf("Game over! Here's the score:\n");
-    read(the_sock, score, sizeof(score));
+    read(the_sock, score, 80);
     printf("%s\n", score);
+    char* resp="OK";
+    write(the_sock, resp, sizeof(resp));
+    char* win = (char *)malloc(sizeof(char)*256);
+    read(the_sock, win, 10);
+    printf("win: %s\n", win);
     break;
   }
 }
